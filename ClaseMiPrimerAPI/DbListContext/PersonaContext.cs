@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClaseMiPrimerAPI.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
-namespace ClaseMiPrimerAPI.Model
+namespace ClaseMiPrimerAPI.DbListContext
 {
-    public class PersonaContext: DbContext
+    public class PersonaContext : DbContext
     {
         public PersonaContext(DbContextOptions<PersonaContext> options) : base(options)
         {
