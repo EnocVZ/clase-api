@@ -1,4 +1,6 @@
-﻿using ClaseMiPrimerAPI.Model;
+﻿
+using ClaseMiPrimerAPI.DbListContext;
+using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -153,12 +155,17 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpPost]
         [Route("guardarEnDB")]
-        public async Task<IActionResult> guardarEnDB(Persona persona)
+        public async Task<IActionResult> guardarEnDB(RequestPersona persona)
         {
             try
             {
+                Persona personaGuardar = new Persona
+                {
+                    Nombre = persona.Nombre,
+                    Apellido = persona.Apellido
+                };
                 
-                await context.Persona.AddAsync(persona);
+                await context.Persona.AddAsync(personaGuardar);
                 await context.SaveChangesAsync();
 
                 return Ok();

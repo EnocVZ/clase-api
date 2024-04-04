@@ -1,4 +1,4 @@
-using ClaseMiPrimerAPI.Model;
+using ClaseMiPrimerAPI.DbListContext;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
