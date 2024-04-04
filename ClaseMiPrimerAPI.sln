@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClaseMiPrimerAPI", "ClaseMiPrimerAPI\ClaseMiPrimerAPI.csproj", "{30F9C7EB-0952-4E9C-A80D-FF66473FEA86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30F9C7EB-0952-4E9C-A80D-FF66473FEA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F9C7EB-0952-4E9C-A80D-FF66473FEA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F9C7EB-0952-4E9C-A80D-FF66473FEA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F9C7EB-0952-4E9C-A80D-FF66473FEA86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC5CC9EA-216F-465D-A688-3DF39DA8780B}
+	EndGlobalSection
+EndGlobal
