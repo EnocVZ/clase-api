@@ -1,0 +1,85 @@
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD
+$ git init
+Initialized empty Git repository in C:/Users/Osadi/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD/.git/
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git remote add origin https://github.com/EnocVZ/clase-api.git
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/EnocVZ/clase-api.git
+  Push  URL: https://github.com/EnocVZ/clase-api.git
+  HEAD branch: main
+  Remote branches:
+    enoc      new (next fetch will store in remotes/origin)
+    feat-enoc new (next fetch will store in remotes/origin)
+    main      new (next fetch will store in remotes/origin)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git branch
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git checkout -b main
+Switched to a new branch 'main'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/EnocVZ/clase-api.git
+  Push  URL: https://github.com/EnocVZ/clase-api.git
+  HEAD branch: main
+  Remote branches:
+    enoc      new (next fetch will store in remotes/origin)
+    feat-enoc new (next fetch will store in remotes/origin)
+    main      new (next fetch will store in remotes/origin)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git pull origin main
+remote: Enumerating objects: 40, done.
+remote: Counting objects: 100% (40/40), done.
+remote: Compressing objects: 100% (28/28), done.
+remote: Total 40 (delta 12), reused 35 (delta 9), pack-reused 0
+Unpacking objects: 100% (40/40), 10.40 KiB | 31.00 KiB/s, done.
+From https://github.com/EnocVZ/clase-api
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> origin/main
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        txtGitBash-barrios.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch Rama Barrios
+fatal: not a valid object name: 'Barrios'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch "RamaBarrios"
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git checkout RamaBarrios
+Switched to branch 'RamaBarrios'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   txtGitBash-barrios.txt
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m  "Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS"
+[RamaBarrios c49d95e] Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 txtGitBash-barrios.txt

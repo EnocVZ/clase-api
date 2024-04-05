@@ -3,7 +3,7 @@ using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore; //EntityFrameworkCore
 
 namespace ClaseMiPrimerAPI.Controllers
 {
@@ -19,7 +19,7 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
 
-        [HttpGet("listaPersonasRegistradas")]
+        [HttpGet("listaPersonasRegistradasEnoc")]
         public List<Persona> listaPersonasRegistradas()
         {
             List<Persona> listPersona = new List<Persona>();
@@ -40,7 +40,7 @@ namespace ClaseMiPrimerAPI.Controllers
             return listPersona;
         }
 
-        [HttpPost("guardar")]
+        [HttpPost("guardarEnoc")]
         public ResponsePostPersona Guardar(Persona persona)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
@@ -72,7 +72,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         //devolver el objeto de la persona con el id que se manda en parametro
 
-        [HttpGet("listaPersona")]
+        [HttpGet("listaPersonaEnoc")]
         public ResponseGetPersona listaPersona(int id)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
@@ -100,7 +100,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         //actualizar el nombre y apellido de la persona en base a id
         //devolver el id de la persona modificada
-        [HttpPut("actualizarPersona")]
+        [HttpPut("actualizarPersonaEnoc")]
         public ResponsePutPersona actualizarPersona(Persona persona) {
 
             List<Persona> listaPersona = this.listaPersonasRegistradas();
@@ -130,7 +130,7 @@ namespace ClaseMiPrimerAPI.Controllers
             return response;
         }
 
-        [HttpDelete("eliminarPersona")]
+        [HttpDelete("eliminarPersonaEnoc")]
         public ResponsePostPersona eliminarPersona(int id)
         {
             ResponsePostPersona response = new ResponsePostPersona();
@@ -154,7 +154,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
 
         [HttpPost]
-        [Route("guardarEnDB")]
+        [Route("guardarEnDBEnoc")]
         public async Task<IActionResult> guardarEnDB(RequestPersona persona)
         {
             try
@@ -166,7 +166,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 };
                 
                 await context.Persona.AddAsync(personaGuardar);
-                await context.SaveChangesAsync();
+                await context.SaveChanges; //SaveChangesAsync
 
                 return Ok();
             }
@@ -176,5 +176,12 @@ namespace ClaseMiPrimerAPI.Controllers
             }
         }
 
+
+
+        //API BARRRIOS PERSONA ------------------------------------------------------------------------------------------------------------------
+        
+
+
+
+        }
     }
-}
