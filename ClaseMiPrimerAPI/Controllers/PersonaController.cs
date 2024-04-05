@@ -44,7 +44,7 @@ namespace ClaseMiPrimerAPI.Controllers
         public ResponsePostPersona Guardar(Persona persona)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
-            
+
 
             ResponsePostPersona response = new ResponsePostPersona();
             if (persona.Id == null)
@@ -68,7 +68,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         }
 
-       
+
 
         //devolver el objeto de la persona con el id que se manda en parametro
 
@@ -79,7 +79,7 @@ namespace ClaseMiPrimerAPI.Controllers
             ResponseGetPersona response = new ResponseGetPersona();
 
             Persona personaEncontrada = new Persona();
-           
+
 
             for (int i = 0; i < listaPersona.Count; i++)
             {
@@ -105,7 +105,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
             List<Persona> listaPersona = this.listaPersonasRegistradas();
             ResponsePutPersona response = new ResponsePutPersona();
-            Persona personaModificada = new Persona(); 
+            Persona personaModificada = new Persona();
 
             for (int i = 0; i < listaPersona.Count; i++)
             {
@@ -115,10 +115,10 @@ namespace ClaseMiPrimerAPI.Controllers
 
                     listaPersona[i].Nombre = persona.Nombre;
                     listaPersona[i].Apellido = persona.Apellido;
-                   // personaModificada.Nombre = 
+                    // personaModificada.Nombre = 
                 }
 
-                
+
             }
 
 
@@ -141,47 +141,46 @@ namespace ClaseMiPrimerAPI.Controllers
                 if (listaPersona[i].Id != id)
                 {
                     listaPersonaCopia.Add(listaPersona[i]);
-                   // listaPersona.Remove(listaPersona[i]);
+                    // listaPersona.Remove(listaPersona[i]);
 
                 }
 
 
             }
             response.listaPersona = listaPersonaCopia;
-            
+
             return response;
         }
 
 
         [HttpPost]
-        [Route("guardarEnDBEnoc")]
+        [Route("guardarEnDB")]
         public async Task<IActionResult> guardarEnDB(RequestPersona persona)
         {
             try
             {
-                Persona personaGuardar = new Persona
+                Persona personaNueva = new Persona
                 {
                     Nombre = persona.Nombre,
                     Apellido = persona.Apellido
-                };
-                
-                await context.Persona.AddAsync(personaGuardar);
-                await context.SaveChanges; //SaveChangesAsync
+                }; 
+                await context.Persona.AddAsync(personaNueva);
+                await context.SaveChangesAsync();
 
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
 
 
         //API BARRRIOS PERSONA ------------------------------------------------------------------------------------------------------------------
-        
 
 
 
-        }
+
     }
+}
