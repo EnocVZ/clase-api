@@ -3,7 +3,7 @@ using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 
 namespace ClaseMiPrimerAPI.Controllers
 {
@@ -172,7 +172,7 @@ namespace ClaseMiPrimerAPI.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
