@@ -1,4 +1,4 @@
-﻿using ClaseMiPrimerAPI.Model;
+﻿/*using ClaseMiPrimerAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -6,31 +6,31 @@ namespace Vehiculos
 {
     [ApiController]
     [Route("[controller]")]
-    public class VehiculoController : ControllerBase
+    public class VehiculooController : ControllerBase
 
     {
-        static List<Vehiculo> vehiculos = new List<Vehiculo>();
+        static List<Vehiculoo> vehiculos = new List<Vehiculoo>();
         static List<Persona> personas = new List<Persona>();
 
         static void Main(string[] args)
         {
-            Vehiculo vehiculo = new Vehiculo { Id = 1, Marca = "Toyota", Modelo = "Corolla" };
+            Vehiculoo vehiculo = new Vehiculoo { Id = 1, Marca = "Toyota", Modelo = "Corolla" };
             CrearVehiculo(vehiculo);
             vehiculo.Marca = "Honda";
             ActualizarVehiculo(vehiculo);
-            Vehiculo vehiculoObtenido = ObtenerVehiculo(1);
+            Vehiculoo vehiculoObtenido = ObtenerVehiculo(1);
             EliminarVehiculo(1);
 
             Persona persona = new Persona { Id = 1, Nombre = "Jose", Apellido = "Prado" ,Vehiculo = vehiculoObtenido };
             CrearPersona(persona);
         }
 
-        static void CrearVehiculo(Vehiculo vehiculo)
+        static void CrearVehiculo(Vehiculoo vehiculo)
         {
             vehiculos.Add(vehiculo);
         }
 
-        static void ActualizarVehiculo(Vehiculo vehiculo)
+        static void ActualizarVehiculo(Vehiculoo vehiculo)
         {
             for (int i = 0; i < vehiculos.Count; i++)
             {
@@ -42,7 +42,7 @@ namespace Vehiculos
             }
         }
 
-        static Vehiculo ObtenerVehiculo(int id)
+        static Vehiculoo ObtenerVehiculo(int id)
         {
             foreach (var vehiculo in vehiculos)
             {
@@ -66,4 +66,4 @@ namespace Vehiculos
 
     }
 
-}
+}*/

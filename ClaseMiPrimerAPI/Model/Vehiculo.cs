@@ -1,9 +1,8 @@
-﻿using ClaseMiPrimerAPI.Model;
-
-public class Vehiculo
+﻿namespace ClaseMiPrimerAPI.Model
 {
-    public int Id { get; set; }
-    public string Marca { get; set; }
-    public string Modelo { get; set; }
-
+    public class Vehiculo
+    {      
+       public int? Id { get; set; }
+       public string Modelo { get; set; }
+    }
 }
