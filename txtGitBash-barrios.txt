@@ -479,5 +479,64 @@ $
 
 
 
+##############################################################################
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        deleted:    ClaseMiPrimerAPI/Controllers/WeatherForecastController.cs
+        modified:   ClaseMiPrimerAPI/DbListContext/PersonaContext.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD"
+[RamaBarrios ada4218] VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD
+ 5 files changed, 49 insertions(+), 57 deletions(-)
+ delete mode 100644 ClaseMiPrimerAPI/Controllers/WeatherForecastController.cs
+ create mode 100644 ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push oirigin RamaBarrios
+fatal: 'oirigin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push origin RamaBarrios
+Enumerating objects: 16, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (9/9), 1.51 KiB | 774.00 KiB/s, done.
+Total 9 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/EnocVZ/clase-api.git
+   60f73ba..ada4218  RamaBarrios -> RamaBarrios
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+nothing to commit, working tree clean
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
+
+
+
 
 

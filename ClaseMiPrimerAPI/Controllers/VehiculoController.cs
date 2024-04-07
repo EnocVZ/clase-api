@@ -1,17 +1,22 @@
-﻿using ClaseMiPrimerAPI.Model;
+﻿using ClaseMiPrimerAPI.DbListContext;
+using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ClaseMiPrimerAPI.Controllers
 {
-    [Route("vehiculoControllerBarrios/[controller]")]
+    [Route("apiVehiculoBarrios/[controller]")]
     [ApiController]
-    public class VehiculoController
+    public class VehiculoController : ControllerBase
     {
         private readonly ILogger<VehiculoController> logger;
-        public VehiculoController(ILogger<VehiculoController> paramLogger)
+        private readonly VehiculoContext vehiculoContext;
+        public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
         {
             this.logger = paramLogger; //se usa para el registro de la informacion?
+            this.vehiculoContext = vehiculoContext; 
         }
         //lista de vehiculos
         [HttpGet("listaVehiculosAlmacenados")]
@@ -108,6 +113,47 @@ namespace ClaseMiPrimerAPI.Controllers
             responsePostVehiculo.ListaVehiculo = listaVehiculosAlmacenados;
             return responsePostVehiculo;
         }
+        //GUARDAR EN CODIGO ###########################################################
+
+        //GUARDAR EN BASE DE DATOS ###########################################################
+        
+        [HttpGet]
+        [Route("mostrarVehiculos")]
+        public async Task<List<Vehiculo>> mostrarVehiculos()
+        {
+            return await vehiculoContext.Vehiculo.ToListAsync(); 
+        }
+
+        [HttpPost]
+        [Route("crearVehiculo")]
+        public async Task<ActionResult<Response>> crearVehiculo(RequestVehiculo vehiculo)
+        {
+            try
+            {
+                Response responseVehiculo = new Response();
+                Vehiculo agregarVehiculo = new Vehiculo
+                {
+                    Marca = vehiculo.Marca, 
+                    Modelo = vehiculo.Modelo,
+                    Color = vehiculo.Color, 
+                    Anio = vehiculo.Anio
+                };
+                await vehiculoContext.Vehiculo.AddAsync(agregarVehiculo);
+                await vehiculoContext.SaveChangesAsync();
+                responseVehiculo.code = 200;
+                responseVehiculo.message = "El vehiculo se guardo correctamente. ";
+                responseVehiculo.error = false;
+                return Ok(responseVehiculo); 
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
     }
 }
