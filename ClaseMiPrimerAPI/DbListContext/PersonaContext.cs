@@ -1,13 +1,12 @@
 ﻿using ClaseMiPrimerAPI.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
+using Microsoft.EntityFrameworkCore; //interactuar con la base de datos 
 
 namespace ClaseMiPrimerAPI.DbListContext
 {
-    public class PersonaContext : DbContext
+    public class PersonaContext : DbContext /*es una sesion de Base de datos, Interactuar con ella*/
     {
         public PersonaContext(DbContextOptions<PersonaContext> options) : base(options)
-        {
+        { /*el parametro es instancia de DbContextOptions que tiene config especificas para la base de datos*/
         }
 
         public DbSet<Persona> Persona { get; set; }

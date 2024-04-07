@@ -3,6 +3,7 @@ using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore; //EntityFrameworkCore
 
 namespace ClaseMiPrimerAPI.Controllers
@@ -12,13 +13,13 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly ILogger<PersonaController> logger;
-        private readonly PersonaContext context;
+        private readonly PersonaContext personaContext;
         public PersonaController(ILogger<PersonaController> paramLogger, PersonaContext personaContext) {
             logger = paramLogger;
-            context = personaContext;
+            this.personaContext = personaContext;
         }
 
-
+        //GUARDAR EN CODIGO ###########################################################
         [HttpGet("listaPersonasRegistradasEnoc")]
         public List<Persona> listaPersonasRegistradas()
         {
@@ -151,26 +152,38 @@ namespace ClaseMiPrimerAPI.Controllers
 
             return response;
         }
+        //GUARDAR EN CODIGO ###########################################################
 
+        //GUARDAR EN BASE DE DATOS ###########################################################
+        [HttpGet]
+        [Route("listarPersonas")]
+        public async Task<List<Persona>> listarPersonas()
+        {
+            return await personaContext.Persona.ToListAsync();
+        }
 
         [HttpPost]
-        [Route("guardarEnDB")]
-        public async Task<IActionResult> guardarEnDB(RequestPersona persona)
+        [Route("crearPersona")]
+        public async Task<ActionResult<Response>> crearPersona(RequestPersona persona)
         {
             try
             {
+                Response response = new Response(); 
                 Persona personaNueva = new Persona
                 {
                     Nombre = persona.Nombre,
                     Apellido = persona.Apellido
                 }; 
-                await context.Persona.AddAsync(personaNueva);
-                await context.SaveChangesAsync();
-
+                await personaContext.Persona.AddAsync(personaNueva);
+                await personaContext.SaveChangesAsync();
+                response.code = 200;
+                response.message = "Se guardo correctamente";
+                response.error = false; 
                 return Ok();
             }
             catch (Exception ex)
             {
+
                 return BadRequest(ex.Message);
             }
         }
