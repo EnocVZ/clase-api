@@ -2,7 +2,7 @@
 
 namespace ClaseMiPrimerAPI.view
 {
-    public class ResponsePostPersona: Response
+    public class ResponsePostPersona : Response
     {
         public List<Persona> listaPersona { get; set; }
     }

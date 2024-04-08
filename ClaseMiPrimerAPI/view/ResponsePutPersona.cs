@@ -2,9 +2,9 @@
 
 namespace ClaseMiPrimerAPI.view
 {
-    public class ResponsePutPersona:Response
+    public class ResponsePutPersona : Response
     {
-        public int idPersona {  get; set; }
+        public int idPersona { get; set; }
         public List<Persona> listaPersona { get; set; }
     }
 }
