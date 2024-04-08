@@ -543,6 +543,12 @@ namespace ClaseMiPrimerAPI.Controllers
             }
         }
 
+        //---------------------------------------------- RELACIONAR EN UNA TABLA LOS ID DE VEHICULO Y PERSONA --------------------------------------------
+
+
+
+
+
 
 
 
