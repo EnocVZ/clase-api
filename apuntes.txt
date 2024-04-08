@@ -1,0 +1,12 @@
+Dividir los controladores en 
+BD 
+no BD 
+	ME FALTA UN METODO QUE UNA 
+
+hacer controlador de vehiculo
+
+hacer metodo que una vehiculo y persona 
+
+
+arreglar los ResponsePersona
+	Unir todos en uno solo. 

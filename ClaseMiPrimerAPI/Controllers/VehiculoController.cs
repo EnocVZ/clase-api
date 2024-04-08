@@ -1,4 +1,5 @@
-﻿using ClaseMiPrimerAPI.DbListContext;
+﻿using Azure;
+using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
@@ -7,153 +8,119 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClaseMiPrimerAPI.Controllers
 {
-    [Route("apiVehiculoBarrios/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VehiculoController : ControllerBase
     {
-        private readonly ILogger<VehiculoController> logger;
         private readonly VehiculoContext vehiculoContext;
-        public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
+        public VehiculoController(VehiculoContext vehiculoContext)
         {
-            this.logger = paramLogger; //se usa para el registro de la informacion?
-            this.vehiculoContext = vehiculoContext; 
-        }
-        //lista de vehiculos
-        [HttpGet("listaVehiculosAlmacenados")]
-        public List<Vehiculo> ListaVehiculosAlmacenados()
-        {
-            List<Vehiculo> listaVehiculosAlmacenados = new List<Vehiculo>();
-
-            for (int i = 0; i <= 10; i++)
-            {
-                Vehiculo vehiculo = new Vehiculo
-                {
-                    Id = i,
-                    Marca = "Marca " + i,
-                    Modelo = "Modelo " + i,
-                    Color = "Color " + i,
-                    Anio = "200" + i
-                };
-                listaVehiculosAlmacenados.Add(vehiculo);
-            }
-
-            return listaVehiculosAlmacenados;
+            this.vehiculoContext = vehiculoContext;
         }
 
-        //guardar vehiculos
-        [HttpPost("guardarVehiculo")]
-        public PostVehiculo GuardarVehiculo(Vehiculo vehiculo)
-        {
-            List<Vehiculo> listaPostVehiculo = this.ListaVehiculosAlmacenados();
-            listaPostVehiculo.Add(vehiculo);
+        ResponseVehiculo responseVehiculo = new ResponseVehiculo();
 
-            PostVehiculo responsePostVehiculo = new PostVehiculo();
-
-            responsePostVehiculo.Vehiculo = vehiculo;
-            responsePostVehiculo.ListaVehiculo = listaPostVehiculo;
-            return responsePostVehiculo;
-        }
-
-        [HttpGet("buscarVehiculo")]
-        public GetVehiculo buscarVehiculo(int id)
-        {
-            GetVehiculo responseGetVehiculo = new GetVehiculo();
-            List<Vehiculo> ListaVehiculosAlmacenados = this.ListaVehiculosAlmacenados();
-            Vehiculo buscarVehiculo = new Vehiculo();
-
-            for (int i = 0; i < ListaVehiculosAlmacenados.Count; i++)
-            {
-                if (ListaVehiculosAlmacenados[i].Id == id)
-                {
-                    buscarVehiculo = ListaVehiculosAlmacenados[i];
-                }
-            }
-            responseGetVehiculo.vehiculoEncontrado = buscarVehiculo;
-            return responseGetVehiculo;
-
-        }
-
-        [HttpPut("actualizarVehiculo")]
-        public PutVehiculo actualizarVehiculo(Vehiculo vehiculo)
-        {
-            PutVehiculo responsePutVehiculo = new PutVehiculo();
-            List<Vehiculo> listaVehiculosAlmacenados = this.ListaVehiculosAlmacenados();
-            Vehiculo vehiculoModificado = new Vehiculo();
-
-            for (int i = 0; i < listaVehiculosAlmacenados.Count; i++)
-            {
-                if (listaVehiculosAlmacenados[i].Id == vehiculo.Id)
-                {
-                    vehiculoModificado = listaVehiculosAlmacenados[i];
-                    listaVehiculosAlmacenados[i].Marca = vehiculo.Marca;
-                    listaVehiculosAlmacenados[i].Modelo = vehiculo.Modelo;
-                    listaVehiculosAlmacenados[i].Color = vehiculo.Color;
-                    listaVehiculosAlmacenados[i].Anio = vehiculo.Anio;
-                }
-            }
-            responsePutVehiculo.message = vehiculoModificado.Marca; 
-            responsePutVehiculo.ListaVehiculo = listaVehiculosAlmacenados;
-
-            return responsePutVehiculo;
-        }
-
-        [HttpDelete("eliminarVehiculo")]
-        public PostVehiculo eliminarVehiculo(int id)
-        {
-            PostVehiculo responsePostVehiculo = new PostVehiculo();
-            List<Vehiculo> listaVehiculosAlmacenados = this.ListaVehiculosAlmacenados();
-
-            for (int i = 0; i < listaVehiculosAlmacenados.Count; i++)
-            {
-                if (listaVehiculosAlmacenados[i].Id == id)
-                {
-                    listaVehiculosAlmacenados.Remove(listaVehiculosAlmacenados.ElementAt(i));
-                }
-            }
-            responsePostVehiculo.ListaVehiculo = listaVehiculosAlmacenados;
-            return responsePostVehiculo;
-        }
-        //GUARDAR EN CODIGO ###########################################################
-
-        //GUARDAR EN BASE DE DATOS ###########################################################
-        
         [HttpGet]
-        [Route("mostrarVehiculos")]
-        public async Task<List<Vehiculo>> mostrarVehiculos()
+        [Route("listaVehiculos")]
+        public async Task<ActionResult<IEnumerable<Vehiculo>>> listaVehiculos()
         {
-            return await vehiculoContext.Vehiculo.ToListAsync(); 
+            var vehiculos = await vehiculoContext.Vehiculo.ToListAsync();
+            return Ok(vehiculos);
         }
 
         [HttpPost]
         [Route("crearVehiculo")]
-        public async Task<ActionResult<Response>> crearVehiculo(RequestVehiculo vehiculo)
+        public async Task<ActionResult<ResponseVehiculo>> crearVehiculo(Vehiculo vehiculo)
         {
             try
             {
-                Response responseVehiculo = new Response();
-                Vehiculo agregarVehiculo = new Vehiculo
-                {
-                    Marca = vehiculo.Marca, 
-                    Modelo = vehiculo.Modelo,
-                    Color = vehiculo.Color, 
-                    Anio = vehiculo.Anio
-                };
-                await vehiculoContext.Vehiculo.AddAsync(agregarVehiculo);
+                await vehiculoContext.Vehiculo.AddAsync(vehiculo);
                 await vehiculoContext.SaveChangesAsync();
+
                 responseVehiculo.code = 200;
-                responseVehiculo.message = "El vehiculo se guardo correctamente. ";
+                responseVehiculo.message = "Se agrego correctamente. ";
                 responseVehiculo.error = false;
-                return Ok(responseVehiculo); 
+                responseVehiculo.Vehiculo = vehiculo; //eliminar 
+
+                return Ok(responseVehiculo);
             }
 
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message);
+                return Ok(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("buscarVehiculo")]
+        public async Task<IActionResult> buscarVehiculo(int id)
+        {
+            Vehiculo buscarVehiculo = await vehiculoContext.Vehiculo.FindAsync(id);
+
+            if (buscarVehiculo == null)
+            {
+                responseVehiculo.error = true;
+                responseVehiculo.message = "Vehiculo no encontrado. ";
+                responseVehiculo.code = 500;
+                return NotFound(responseVehiculo);
+            }
+            responseVehiculo.error = false;
+            responseVehiculo.message = "Vehiculo encontrado.";
+            responseVehiculo.vehiculoEncontrado = buscarVehiculo;
+            return Ok(responseVehiculo);
+        }
+
+        [HttpPut]
+        [Route("actualizarVehiculo")]
+        public async Task<IActionResult> actualizarVehiculo(int id, RequestVehiculo vehiculo)
+        {
+            var vehiculoExiste = await vehiculoContext.Vehiculo.FindAsync(id);
+
+            if (vehiculoExiste == null)
+            {
+                responseVehiculo.error = true;
+                responseVehiculo.message = "Vehiculo no encontrado.";
+                responseVehiculo.code = 500;
+                return NotFound(responseVehiculo);
+            }
+
+            vehiculoExiste.Marca = vehiculo.Marca;
+            vehiculoExiste.Modelo = vehiculo.Modelo;
+            vehiculoExiste.Color = vehiculo.Color;
+            vehiculoExiste.Anio = vehiculo.Anio;
+            await vehiculoContext.SaveChangesAsync();
+
+            responseVehiculo.error = false;
+            responseVehiculo.vehiculoEncontrado = vehiculoExiste;
+            responseVehiculo.message = "Vehiculo actualizado";
+            responseVehiculo.code = 200;
+
+            return Ok(responseVehiculo);
 
         }
 
+        [HttpDelete]
+        [Route("eliminarVehiculo")]
+        public async Task<IActionResult> eliminarVehiculo(int id)
+        {
+            var vehiculoEliminar = await vehiculoContext.Vehiculo.FindAsync(id);
 
+            if (vehiculoEliminar == null)
+            {
+                responseVehiculo.error = true;
+                responseVehiculo.message = "Vehiculo con id: " + id + " no encontrado";
+                responseVehiculo.code = 500;
+                return Ok(responseVehiculo);
+            }
+
+            vehiculoContext.Vehiculo.Remove(vehiculoEliminar);
+            await vehiculoContext.SaveChangesAsync(); 
+
+            responseVehiculo.error = false;
+            responseVehiculo.message = "Vehiculo eliminado. ";
+            responseVehiculo.code = 200;
+            responseVehiculo.vehiculoEncontrado = vehiculoEliminar; 
+            return Ok(responseVehiculo);
+        }
     }
 }

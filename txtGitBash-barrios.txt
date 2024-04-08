@@ -536,6 +536,55 @@ nothing to commit, working tree clean
 Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
 $
 
+##########################################################################
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/Controllers/VehiculoController.cs
+        modified:   ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+        modified:   ClaseMiPrimerAPI/Program.cs
+        deleted:    ClaseMiPrimerAPI/WeatherForecast.cs
+        modified:   txtGitBash-barrios.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ClaseMiPrimerAPI/Model/RequestVehiculo.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo. "
+[RamaBarrios 3782bde] PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo.
+ 7 files changed, 200 insertions(+), 30 deletions(-)
+ create mode 100644 ClaseMiPrimerAPI/Model/RequestVehiculo.cs
+ delete mode 100644 ClaseMiPrimerAPI/WeatherForecast.cs
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push origin RamaBarrios
+Enumerating objects: 22, done.
+Counting objects: 100% (22/22), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (12/12), 2.87 KiB | 1.44 MiB/s, done.
+Total 12 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), completed with 8 local objects.
+To https://github.com/EnocVZ/clase-api.git
+   ada4218..3782bde  RamaBarrios -> RamaBarrios
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+nothing to commit, working tree clean
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
 
 
 
