@@ -1,5 +1,6 @@
 ﻿using ClaseMiPrimerAPI.Model;
 using Microsoft.EntityFrameworkCore;
+using ClaseMiPrimerAPI;
 using System.Data.Common;
 
 namespace ClaseMiPrimerAPI.DbListContext
@@ -11,6 +12,8 @@ namespace ClaseMiPrimerAPI.DbListContext
         }
 
         public DbSet<Persona> Persona { get; set; }
+
+        public DbSet<Vehiculo> Vehiculo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

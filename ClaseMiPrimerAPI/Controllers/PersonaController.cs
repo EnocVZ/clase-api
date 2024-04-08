@@ -13,168 +13,356 @@ namespace ClaseMiPrimerAPI.Controllers
     {
         private readonly ILogger<PersonaController> logger;
         private readonly PersonaContext context;
-        public PersonaController(ILogger<PersonaController> paramLogger, PersonaContext personaContext) {
-            logger = paramLogger;
+        public PersonaController(ILogger<PersonaController> palogger, PersonaContext personaContext)
+        {
+            this.logger = palogger;
             context = personaContext;
         }
 
+        //        [HttpPost("guardar")]
+        //        public Response Guardar(Persona persona)
+        //        {
+        //            List<Persona> list = new List<Persona>();
+        //            Persona juan = new Persona
+        //            {
+        //                Nombre = "juan"
+        //            };
+        //            list.Add(persona);
+        //            list.Add(juan);
 
-        [HttpGet("listaPersonasRegistradas")]
-        public List<Persona> listaPersonasRegistradas()
-        {
-            List<Persona> listPersona = new List<Persona>();
+        //            Response response = new Response();
+        //            if (persona.Id == 0)
+        //            {
+        //                response.code = 200;
+        //                response.error = false;
+        //                response.message = "se agrego";
 
-            for (int i = 1; i <= 10; i++)
-            {
-                Persona persona = new Persona
-                {
-                    Id = i,
-                    Nombre = "Persona" + i,
-                    Apellido = "Apellido" + i,
-                };
-                listPersona.Add(persona);
+        //            }
+        //            else
+        //            {
+        //                response.code = 500;
+        //                response.error = true;
+        //                response.message = "No se pudoguardar";
+        //            }
+        //            response.listaPersona = list;
 
-            }
+        //            return response;
+        //        }
 
+        //        [HttpGet("listaPersona2")]
+        //        public ResponseGetPersona listaPersona(int id)
+        //        {
+        //            //Response response = new Response();
+        //            //return response;
+        //            ResponseGetPersona response = new ResponseGetPersona();
+        //            List<Persona> listPersona = new List<Persona>();
+        //            Persona luis = new Persona()
+        //            {
+        //                Id = 1,
+        //                Nombre = "Luis",
+        //            };
+        //            Persona flor = new Persona()
+        //            {
+        //                Id = 2,
+        //                Nombre = "Flor",
+        //            };
+        //            listPersona.Add(luis);
+        //            listPersona.Add(flor);
 
-            return listPersona;
-        }
+        //            return response;
+        //        }
+        //        [HttpPut("actulizar")]
+        //        public ResponsePutPersona actualizarPersona(Persona persona)
+        //        {
+        //            ResponsePutPersona response = new ResponsePutPersona();
+        //            Persona enoc = new Persona
+        //            {
+        //                Id = 1,
+        //                Nombre = "Enoc",
+        //                Apellido = "Vazquez"
+        //            };
 
-        [HttpPost("guardar")]
-        public ResponsePostPersona Guardar(Persona persona)
-        {
-            List<Persona> listaPersona = this.listaPersonasRegistradas();
-            
+        //            enoc.Nombre = persona.Nombre;
+        //            enoc.Apellido = persona.Apellido;
 
-            ResponsePostPersona response = new ResponsePostPersona();
-            if (persona.Id == null)
-            {
-                response.code = 200;
-                response.error = false;
-                response.message = "Se agrego";
-                persona.Id = listaPersona.Count + 1;
-                listaPersona.Add(persona);
-
-            }
-            else
-            {
-                response.code = 404;
-                response.error = true;
-                response.message = "No se inserto";
-            }
-            response.listaPersona = listaPersona;
-
-            return response;
-
-        }
-
-       
-
-        //devolver el objeto de la persona con el id que se manda en parametro
-
-        [HttpGet("listaPersona")]
-        public ResponseGetPersona listaPersona(int id)
-        {
-            List<Persona> listaPersona = this.listaPersonasRegistradas();
-            ResponseGetPersona response = new ResponseGetPersona();
-
-            Persona personaEncontrada = new Persona();
-           
-
-            for (int i = 0; i < listaPersona.Count; i++)
-            {
-                Persona item = listaPersona[i];
-                if (item.Id == id)
-                {
-                    personaEncontrada = item;
-
-                }
-
-            }
-
-            response.personaEncontrada = personaEncontrada;
-
-            return response;
-        }
+        //            response.persona = enoc;
+        //            response.IdPersonaModificada = enoc.Id;
 
 
-        //actualizar el nombre y apellido de la persona en base a id
-        //devolver el id de la persona modificada
-        [HttpPut("actualizarPersona")]
-        public ResponsePutPersona actualizarPersona(Persona persona) {
+        //            return response;
+        //        }
+        //        [HttpGet("listaPersonasRegistradas")]
+        //        public List<Persona> listaPersonasRegistradas()
+        //        {
+        //            List<Persona> listPersona = new List<Persona>();
 
-            List<Persona> listaPersona = this.listaPersonasRegistradas();
-            ResponsePutPersona response = new ResponsePutPersona();
-            Persona personaModificada = new Persona(); 
+        //            for (int i = 1; i <= 10; i++)
+        //            {
+        //                Persona persona = new Persona
+        //                {
+        //                    Id = i,
+        //                    Nombre = "Persona" + i,
+        //                    Apellido = "Apellido" + i,
+        //                };
+        //                listPersona.Add(persona);
 
-            for (int i = 0; i < listaPersona.Count; i++)
-            {
-                if (listaPersona[i].Id == persona.Id)
-                {
-                    personaModificada = listaPersona[i];
-
-                    listaPersona[i].Nombre = persona.Nombre;
-                    listaPersona[i].Apellido = persona.Apellido;
-                   // personaModificada.Nombre = 
-                }
-
-                
-            }
+        //            }
 
 
-            response.message = personaModificada.Nombre;
-            response.idPersona = (int)personaModificada.Id;
-            response.listaPersona = listaPersona;
+        //            return listPersona;
+        //        }
+        //        [HttpPut("actualizarPersona")]
+        //        public ResponsePutPersona aactualizarPersona(Persona persona)
+        //        {
+
+        //            List<Persona> listaPersona = this.listaPersonasRegistradas();
+        //            ResponsePutPersona response = new ResponsePutPersona();
+        //            Persona personaModificada = new Persona();
+
+        //            for (int i = 0; i < listaPersona.Count; i++)
+        //            {
+        //                if (listaPersona[i].Id == persona.Id)
+        //                {
+        //                    personaModificada = listaPersona[i];
+
+        //                    listaPersona[i].Nombre = persona.Nombre;
+        //                    listaPersona[i].Apellido = persona.Apellido;
+        //                    // personaModificada.Nombre = 
+        //                }
 
 
-            return response;
-        }
-
-        [HttpDelete("eliminarPersona")]
-        public ResponsePostPersona eliminarPersona(int id)
-        {
-            ResponsePostPersona response = new ResponsePostPersona();
-            List<Persona> listaPersona = this.listaPersonasRegistradas();
-            List<Persona> listaPersonaCopia = new List<Persona>();
-            for (int i = 0; i < listaPersona.Count; i++)
-            {
-                if (listaPersona[i].Id != id)
-                {
-                    listaPersonaCopia.Add(listaPersona[i]);
-                   // listaPersona.Remove(listaPersona[i]);
-
-                }
+        //            }
 
 
-            }
-            response.listaPersona = listaPersonaCopia;
-            
-            return response;
-        }
+        //            response.message = personaModificada.Nombre;
+        //            response.idPersona = (int)personaModificada.Id;
+        //            response.listaPersona = listaPersona;
 
 
+
+
+        //            return response;
+        //        }
         [HttpPost]
         [Route("guardarEnDB")]
-        public async Task<IActionResult> guardarEnDB(RequestPersona persona)
+        public async Task<IActionResult> guardarEnDB(Persona persona)
         {
             try
             {
-                Persona personaGuardar = new Persona
+                // Crear una nueva instancia de Persona con los datos recibidos
+                var nuevaPersona = new Persona()
                 {
                     Nombre = persona.Nombre,
-                    Apellido = persona.Apellido
+                    Apellido = persona.Apellido,
+                    // Agregar otros campos según sea necesario
                 };
-                
-                await context.Persona.AddAsync(personaGuardar);
+
+                // Agregar la nueva persona a la base de datos de forma asincrónica
+                var result = await context.Persona.AddAsync(nuevaPersona);
+
+                // Comprobar si la operación de agregar fue exitosa
+                if (result == null)
+                {
+                    return BadRequest(); // Si no fue exitosa, retornar un error
+                }
+
+                // Guardar los cambios en la base de datos de forma asincrónica
                 await context.SaveChangesAsync();
 
-                return Ok();
+                // Retornar un código de éxito junto con la nueva persona creada
+                return Ok(nuevaPersona);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                // Manejar errores y excepciones
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("listarPersonaBD")]
+        public async Task<ActionResult<ResponseGetPersona>> listarPersonaDB()
+        {
+            try
+            {
+                ResponseGetPersona response = new ResponseGetPersona();
+
+                List<Persona> personas = await context.Persona.ToListAsync();
+
+                await context.SaveChangesAsync();
+
+                response.code = 200;
+                response.message = "Personas obtenidas correctamente";
+                response.error = false;
+                response.listaPersona = personas;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }
         }
 
+        [HttpPut]
+        [Route("ModificarPersona")]
+        public async Task<ActionResult<ResponseGetPersona>> ActualizarPersonaDB(Persona personaActualizada)
+        {
+            try
+            {
+                var personaEncontrada = await context.Persona.FindAsync(personaActualizada.Id);
+
+                if (personaEncontrada != null)
+                {
+                    personaEncontrada.Nombre = personaActualizada.Nombre;
+                    personaEncontrada.Apellido = personaActualizada.Apellido;
+
+                    await context.SaveChangesAsync();
+
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 200,
+                        message = "Persona actualizada correctamente",
+                        error = false,
+                        personaEncontrada = personaEncontrada
+                    };
+                    return Ok(response);
+                }
+                else
+                {
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 404,
+                        message = "Persona no encontrada",
+                        error = true
+                    };
+
+                    return NotFound(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete]
+        [Route("EliminarPersona")]
+        public async Task<ActionResult<ResponseGetPersona>> EliminarPersonaDB(int Id)
+        {
+            try
+            {
+                var personaAEliminar = await context.Persona.FindAsync(Id);
+
+                if (personaAEliminar != null)
+                {
+                    context.Persona.Remove(personaAEliminar);
+
+                    await context.SaveChangesAsync();
+
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 200,
+                        message = "Persona eliminada correctamente",
+                        error = false
+                    };
+
+                    return Ok(response);
+                }
+                else
+                {
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 404,
+                        message = "Persona no encontrada",
+                        error = true
+                    };
+
+                    return NotFound(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet]
+        [Route("BuscarPorApellido")]
+        public async Task<ActionResult<ResponseGetPersona>> BuscarPersonaPorApellido(string apellidoBusqueda)
+        {
+            try
+            {
+                List<Persona> personasEncontradas = await context.Persona.Where(p => p.Apellido == apellidoBusqueda).ToListAsync();
+
+                if (personasEncontradas.Count > 0)
+                {
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 200,
+                        message = $"Se encontraron personas con el apellido '{apellidoBusqueda}'",
+                        error = false,
+                        listaPersona = personasEncontradas
+                    };
+
+                    return Ok(response);
+                }
+                else
+                {
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 404,
+                        message = $"No se encontraron personas con el apellido '{apellidoBusqueda}'",
+                        error = true
+                    };
+
+                    return NotFound(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpPut]
+        [Route("ModificarApellidoPersona")]
+        public async Task<ActionResult<ResponseGetPersona>> ModificarApellidoPersona(int personaId, string nuevoApellido)
+        {
+            try
+            {
+                var personaEncontrada = await context.Persona.FindAsync(personaId);
+
+                if (personaEncontrada != null)
+                {
+                    personaEncontrada.Apellido = nuevoApellido;
+
+                    await context.SaveChangesAsync();
+
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 200,
+                        message = "Apellido de la persona modificado correctamente",
+                        error = false,
+                        personaEncontrada = personaEncontrada
+                    };
+
+                    return Ok(response);
+                }
+                else
+                {
+                    ResponseGetPersona response = new ResponseGetPersona
+                    {
+                        code = 404,
+                        message = "Persona no encontrada",
+                        error = true
+                    };
+
+                    return NotFound(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }
