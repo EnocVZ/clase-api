@@ -14,6 +14,14 @@ builder.Services.AddDbContext<PersonaContext>(o =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+builder.Services.AddDbContext<VehiculoContext>(o =>
+{
+    o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
+});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,0 +1,591 @@
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD
+$ git init
+Initialized empty Git repository in C:/Users/Osadi/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD/.git/
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git remote add origin https://github.com/EnocVZ/clase-api.git
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/EnocVZ/clase-api.git
+  Push  URL: https://github.com/EnocVZ/clase-api.git
+  HEAD branch: main
+  Remote branches:
+    enoc      new (next fetch will store in remotes/origin)
+    feat-enoc new (next fetch will store in remotes/origin)
+    main      new (next fetch will store in remotes/origin)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git branch
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (master)
+$ git checkout -b main
+Switched to a new branch 'main'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/EnocVZ/clase-api.git
+  Push  URL: https://github.com/EnocVZ/clase-api.git
+  HEAD branch: main
+  Remote branches:
+    enoc      new (next fetch will store in remotes/origin)
+    feat-enoc new (next fetch will store in remotes/origin)
+    main      new (next fetch will store in remotes/origin)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git pull origin main
+remote: Enumerating objects: 40, done.
+remote: Counting objects: 100% (40/40), done.
+remote: Compressing objects: 100% (28/28), done.
+remote: Total 40 (delta 12), reused 35 (delta 9), pack-reused 0
+Unpacking objects: 100% (40/40), 10.40 KiB | 31.00 KiB/s, done.
+From https://github.com/EnocVZ/clase-api
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> origin/main
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        txtGitBash-barrios.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch Rama Barrios
+fatal: not a valid object name: 'Barrios'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git branch "RamaBarrios"
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (main)
+$ git checkout RamaBarrios
+Switched to branch 'RamaBarrios'
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   txtGitBash-barrios.txt
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m  "Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS"
+[RamaBarrios c49d95e] Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 txtGitBash-barrios.txt
+
+
+
+
+
+
+
+
+
+
+YA FUNCIONO jajajajajajja
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/ClaseMiPrimerAPI.csproj
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true"
+error: pathspec 'Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true' did not match any file(s) known to git
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true"
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/ClaseMiPrimerAPI.csproj
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   ClaseMiPrimerAPI/ClaseMiPrimerAPI.csproj
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   ClaseMiPrimerAPI/ClaseMiPrimerAPI.csproj
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits"
+error: pathspec 'Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits' did not match any file(s) known to git
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits"
+[RamaBarrios a8c7a71] Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits
+ 3 files changed, 23 insertions(+), 22 deletions(-)
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+nothing to commit, working tree clean
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git show
+commit a8c7a71dc10f516ad0ba7c43e429c0956a60c025 (HEAD -> RamaBarrios)
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 5 13:41:49 2024 -0600
+
+
+PRESION Q PARA SALIR DE ESTO 
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push origin RamaBarrios
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 1.06 KiB | 1.06 MiB/s, done.
+Total 7 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/EnocVZ/clase-api.git
+   3d929c4..a8c7a71  RamaBarrios -> RamaBarrios
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ history
+    1  git --version
+    2  git help config
+    3  cd test
+    4   dir
+    5  cd C:\Users\Osadi\OneDrive\Documentos\8voSemestre\Desarrollo Web\git\holamundo
+    6  cd Users
+    7  help
+    8  dir
+    9  cd onedrive
+   10  dir
+   11  cd Documentos/
+   12  dir
+   13  cd 8voSemestre/Desarrollo\ Web/git/holamundo/
+   14  git init
+   15  git status
+   16  git add index.html
+   17  clear
+   18   git config --global user.username noobvarrios
+   19  git remote add origin
+   20  git remote add origin https://github.com/noobvarrios/holamundo.git
+   21  git push origin master
+   22  git push origin master
+   23  git push origin
+   24  git status
+   25  git remote add origin https://github.com/noobvarrios/holamundo.git
+   26  git push -u origin moodleGUI.html
+   27  dir
+   28  cd documents
+   29  dir
+   30  cd c:
+   31  dir
+   32  cd users
+   33  cd osadi
+   34  dir
+   35  cd onedrive
+   36  dir
+   37  cd documentos
+   38  dir
+   39  cd 8vosemestres
+   40  cd 8vosemestre
+   41  cd Desarrollo web
+   42  dir
+   43  cd desarrollo\web
+   44  cd desarrollo\ web
+   45  dir
+   46  cd holamundo
+   47  git status
+   48  git status
+   49  git add .
+   50  git commit -m "Se agrego el index"
+   51  git push -u origin moodleGUI.html
+   52  git status
+   53  git add notas.txt
+   54  git commit -m "Notas agregadas"
+   55  git push -u origin moodleGUI.html
+   56  git log
+   57  git status
+   58  git add .
+   59  git status
+   60  git commit -m "Se añadio personas"
+   61  get status
+   62  git push -u origin moodleGUI.html
+   63  git status
+   64  git init
+   65  git status
+   66  git add .
+   67  git commit -m "Proyecto version 1"
+   68  git status
+   69  clean
+   70  clear
+   71  git init
+   72  echo "# unidad1dwb_bbs" >>README.md
+   73  git add README.md
+   74  git commit -m "inicio-sesion"
+   75  git commit -m "cliente"
+   76  git comming -m "admin"
+   77  git commit -m "admin"
+   78  git branch -M main
+   79  git remote add origin https://github.com/noobvarrios/unidad1dwa_bbs.git
+   80  git status
+   81  git push -u origin main
+   82  git status
+   83  git add .
+   84  git status
+   85  git branch administrador
+   86  git branch cliente
+   87  git branch inicio-sesion
+   88  git checkout cliente
+   89  git commit -m "primer interfaz cliente"
+   90  git status
+   91  git push cliente.html
+   92  git push -u cliente.html
+   93  git push -u cliente cliente.html
+   94  status
+   95  git status
+   96  git status
+   97  git status
+   98  git add cliente
+   99  git add cliente.html
+  100  git status
+  101  git checkout administrador
+  102  git commit -m  "clientes modificado"
+  103  git push -u origin cliente
+  104  git checkout administrador
+  105  git checkout main
+  106  git status
+  107  git add index.html
+  108  git add admin.html
+  109  git add inicio-sesion.html
+  110  git checkout administrador
+  111  git status
+  112  git push -u origin cliente
+  113  git status
+  114  git checkout administrador
+  115  git commit -m "actualizaciones cliente"
+  116  git status
+  117  git checkout administrador
+  118  close
+  119  help
+  120  clear
+  121  git init
+  122  git status
+  123  git add .
+  124  git commit -m "Proyecto U1"
+  125  git branch -M master
+  126  git remote add origin https://github.com/noobvarrios/proyectou1_bbs.git
+  127  git push -u origin master
+  128  git status
+  129  git status
+  130  git push -u origin master
+  131  git status
+  132  git add mintty.2024-02-13_16-09-20.png
+  133  git push -u origin master
+  134  git status
+  135  git status
+  136  git push -u origin main
+  137  git status
+  138  clear
+  139  git status
+  140  git add .
+  141  git push -u origin main
+  142  git checkout main
+  143  git status
+  144  git add .
+  145  git push -u origin main
+  146  git status
+  147  git status
+  148  git commit "Imagen"
+  149  git commit -m "Imagen"
+  150  git status
+  151  git push -u origin main
+  152  git status
+  153  git status
+  154  git add index.html
+  155  git status
+  156  git push -u origin main
+  157  git status
+  158  git commit -m "index agregado"
+  159  git push -u origin main
+  160  git status
+  161  git branch inicio-sesion
+  162  git status
+  163  git branch interfaz-cliente
+  164  git branch interfaz-admin
+  165  git push -u origin main
+  166  git checkout inciar-sesion
+  167  git checkout interfaz-admin
+  168  git checkout main
+  169  git branch inicio-sesion
+  170  git checkout inicio-sesion
+  171  git status
+  172  git add inicio-sesion.html
+  173  git status
+  174  git commit -m "inicio-sesion agregado"
+  175  git push -u origin inicio-sesion
+  176  git status
+  177  git checkout main
+  178  git checkout interfaz-admin
+  179  git status
+  180  git add interfaz-admin.html
+  181  git status
+  182  git commit -m "Interfaz Administrador Añadida"
+  183  git push -u origin interfaz-admin
+  184  git status
+  185  git checkout
+  186  git checkout main
+  187  git init
+  188  git status
+  189  git add .
+  190  git commit -m "Version 1 - Proyecto completo DWA - Barrios Ballinas Samayoa"
+  191  git branch -M main
+  192  git remote add origin https://github.com/noobvarrios/proyectou1_DWA_BallinasBarriosSamayoa.git
+  193  git push -u origin main
+  194  git status
+  195  git add codigoGit.txt
+  196  git push -u origin main
+  197  git status
+  198  git commit "Version 1 - Notas Git"
+  199  git commit -m "Version 1 - Notas Git"
+  200  git add notasGit.txt
+  201  dir
+  202  git add codigoGit.txt
+  203  git push -u origin main
+  204  git init
+  205  git init
+  206  git clone 200~https://github.com/EnocVZ/clase-api.git
+  207  git clone https://github.com/EnocVZ/clase-api.git
+  208  git commit -am "Barrios clono el proyecto de ENOC"
+  209  git add .
+  210  git init
+  211  git checkout -b "main"
+  212  git remote add origin https://github.com/EnocVZ/clase-api.git
+  213  git remote show origin
+  214  git pull origin feat-enoc
+  215  git status
+  216  git add .
+  217  git status
+  218  git commit -m "Primer Commit Barrios con un TXT"
+  219  git status
+  220  git branch
+  221  git remote show origi
+  222  git remote show origin
+  223  git branch RamaBarrios
+  224  git checkout
+  225  git checkout RamaBarrios
+  226  git branch
+  227  git remote show origin
+  228  git push -u origin RamaBarrios
+  229  git clone https://github.com/EnocVZ/clase-api.git
+  230  clase-api/
+  231  git branch
+  232  cd clase-api/
+  233  git branch
+  234  git branch RamaBarrios
+  235  git branch
+  236  git checkout RamaBarrios
+  237  git add .
+  238  git status
+  239  git commit -m  "Branch RamaBarrios con un nuevo TXT de Barrios"
+  240  git push origin RamaBarrios
+  241  git status
+  242  git add
+  243  git add .
+  244  gi status
+  245  git status
+  246  git commit -m "Codigo de acceso denegado en el txt de Barrios"
+  247  git push origin master
+  248  git push origin RamaBarrios
+  249  git init
+  250  git branch
+  251  git remote add origin https://github.com/EnocVZ/clase-api.git
+  252  git remote show origin
+  253  git checkout main
+  254  git branch
+  255  git branch -b main
+  256  git checkout -b main
+  257  git branch
+  258* git remote show origin
+  259  git pull origin main
+  260  git status
+  261  git branch Rama Barrios
+  262  git branch "RamaBarrios"
+  263  git checkout RamaBarrios
+  264  git add .
+  265  git status
+  266  git commit "Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS"
+  267  git commit -m  "Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS"
+  268  git status
+  269  git add .
+  270  git status
+  271  git commit "Barrios unio proyecto persona y vehiculo en el proyecto de ENOC descargado del repositorio"
+  272  git commit -m "Barrios unio proyecto persona y vehiculo en el proyecto de ENOC descargado del repositorio"
+  273  git status
+  274  git status
+  275  git push origin RamaBarrios
+  276  it push origin RamaBarrios
+  277  git push origin RamaBarrios
+  278  git status
+  279  git commit "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true"
+  280  git commit -m "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true"
+  281  git add .
+  282  git status
+  283  git status
+  284  git commit "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits"
+  285  git commit -m "Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits"
+  286  git status
+  287  git show
+  288  git push origin RamaBarrios
+  289  history
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
+
+
+
+
+##############################################################################
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        deleted:    ClaseMiPrimerAPI/Controllers/WeatherForecastController.cs
+        modified:   ClaseMiPrimerAPI/DbListContext/PersonaContext.cs
+        modified:   ClaseMiPrimerAPI/appsettings.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD"
+[RamaBarrios ada4218] VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD
+ 5 files changed, 49 insertions(+), 57 deletions(-)
+ delete mode 100644 ClaseMiPrimerAPI/Controllers/WeatherForecastController.cs
+ create mode 100644 ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push oirigin RamaBarrios
+fatal: 'oirigin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push origin RamaBarrios
+Enumerating objects: 16, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (9/9), 1.51 KiB | 774.00 KiB/s, done.
+Total 9 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/EnocVZ/clase-api.git
+   60f73ba..ada4218  RamaBarrios -> RamaBarrios
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+nothing to commit, working tree clean
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
+
+##########################################################################
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ClaseMiPrimerAPI/Controllers/PersonaController.cs
+        modified:   ClaseMiPrimerAPI/Controllers/VehiculoController.cs
+        modified:   ClaseMiPrimerAPI/DbListContext/VehiculoContext.cs
+        modified:   ClaseMiPrimerAPI/Program.cs
+        deleted:    ClaseMiPrimerAPI/WeatherForecast.cs
+        modified:   txtGitBash-barrios.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ClaseMiPrimerAPI/Model/RequestVehiculo.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git add .
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git commit -m "PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo. "
+[RamaBarrios 3782bde] PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo.
+ 7 files changed, 200 insertions(+), 30 deletions(-)
+ create mode 100644 ClaseMiPrimerAPI/Model/RequestVehiculo.cs
+ delete mode 100644 ClaseMiPrimerAPI/WeatherForecast.cs
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git push origin RamaBarrios
+Enumerating objects: 22, done.
+Counting objects: 100% (22/22), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (12/12), 2.87 KiB | 1.44 MiB/s, done.
+Total 12 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), completed with 8 local objects.
+To https://github.com/EnocVZ/clase-api.git
+   ada4218..3782bde  RamaBarrios -> RamaBarrios
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git status
+On branch RamaBarrios
+nothing to commit, working tree clean
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
+
+
+
+
