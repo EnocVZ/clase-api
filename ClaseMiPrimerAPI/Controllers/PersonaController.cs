@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
@@ -44,7 +45,7 @@ namespace ClaseMiPrimerAPI.Controllers
         public ResponsePostPersona Guardar(Persona persona)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
-            
+
 
             ResponsePostPersona response = new ResponsePostPersona();
             if (persona.Id == null)
@@ -68,7 +69,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         }
 
-       
+
 
         //devolver el objeto de la persona con el id que se manda en parametro
 
@@ -79,7 +80,7 @@ namespace ClaseMiPrimerAPI.Controllers
             ResponseGetPersona response = new ResponseGetPersona();
 
             Persona personaEncontrada = new Persona();
-           
+
 
             for (int i = 0; i < listaPersona.Count; i++)
             {
@@ -105,7 +106,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
             List<Persona> listaPersona = this.listaPersonasRegistradas();
             ResponsePutPersona response = new ResponsePutPersona();
-            Persona personaModificada = new Persona(); 
+            Persona personaModificada = new Persona();
 
             for (int i = 0; i < listaPersona.Count; i++)
             {
@@ -115,10 +116,10 @@ namespace ClaseMiPrimerAPI.Controllers
 
                     listaPersona[i].Nombre = persona.Nombre;
                     listaPersona[i].Apellido = persona.Apellido;
-                   // personaModificada.Nombre = 
+                    // personaModificada.Nombre = 
                 }
 
-                
+
             }
 
 
@@ -141,40 +142,148 @@ namespace ClaseMiPrimerAPI.Controllers
                 if (listaPersona[i].Id != id)
                 {
                     listaPersonaCopia.Add(listaPersona[i]);
-                   // listaPersona.Remove(listaPersona[i]);
+                    // listaPersona.Remove(listaPersona[i]);
 
                 }
 
 
             }
             response.listaPersona = listaPersonaCopia;
-            
+
             return response;
         }
 
 
         [HttpPost]
         [Route("guardarEnDB")]
-        public async Task<IActionResult> guardarEnDB(RequestPersona persona)
+        public async Task<ActionResult<IEnumerable<ResponseGetPersona>>> guardarEnDB(RequestPersona persona)
         {
+
             try
             {
+                ResponseGetPersona response = new ResponseGetPersona();
                 Persona personaGuardar = new Persona
                 {
                     Nombre = persona.Nombre,
                     Apellido = persona.Apellido
                 };
-                
-                await context.Persona.AddAsync(personaGuardar);
+                //metodos asincronos y sincronos
+                var savedData = await context.Persona.AddAsync(personaGuardar);
+                await context.SaveChangesAsync();
+                response.code = 200;
+                response.message = "Se guardo";
+                ; response.error = false;
+                response.personaEncontrada = new Persona
+                {// esto es una forma de acceder se utliza para recuperar un id que se inserto y recuperarlo
+                    Id = savedData.Entity.Id,
+                    Nombre = savedData.Entity.Nombre,
+                    Apellido = savedData.Entity.Apellido,
+
+                };
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet]
+        [Route("listaPersonaBD")]
+        //busqueda
+        public async Task<ActionResult<IEnumerable<ResponseGetPersona>>> listaPersonaBD()
+        {
+            try
+            {// de aca parte la busqueda
+                ResponseGetPersona response = new ResponseGetPersona();
+                //metodos asincronos y sincronos
+                List<Persona> savedData = await context.Persona.ToListAsync();
+                await context.SaveChangesAsync();
+                response.code = 200;
+                response.message = "Se guardo";
+                response.error = false;
+                response.listaPersona = savedData;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpPut]
+        [Route("ActualizarPersonaBD")]
+        //busqueda
+        public async Task<ActionResult<IEnumerable<ResponseGetPersona>>> actuzalizarPersonaBD(int id, Persona persona)
+        {
+            try
+            {// de aca parte la busqueda
+                ResponseGetPersona response = new ResponseGetPersona();
+
+                Persona personaEnBD = await context.Persona.FindAsync(persona.Id);
+                personaEnBD.Nombre = persona.Nombre;
+                personaEnBD.Apellido = persona.Apellido;
+
+                await context.SaveChangesAsync();
+                response.code = 200;
+                response.message = "Se guardo";
+                response.error = false;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpDelete]
+        [Route("eliminarPersonaBD")]
+        //busqueda
+        public async Task<ActionResult<ResponseGetPersona>> eliminarPersonaBD(int id)
+        {
+            try
+            {// de aca parte la busqueda
+                ResponseGetPersona response = new ResponseGetPersona();
+
+                var personaEnBD = await context.Persona.FindAsync(id);
+                context.Remove(personaEnBD);
                 await context.SaveChangesAsync();
 
-                return Ok();
+                response.code = 200;
+                response.message = "Se ellimino";
+                response.error = false;
+
+                return Ok(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet]
+        [Route("obtenerPersonabyID")]
+        //busqueda
+        public async Task<ActionResult<ResponseGetPersona>> obtenerPersonabyID(int id)
+        {
+            try
+            {// de aca parte la busqueda
+                ResponseGetPersona response = new ResponseGetPersona();
+                var personaEnBD = await context.Persona.FindAsync(id);
+                await context.SaveChangesAsync();
+
+                response.code = 200;
+                response.message = "Se ellimino";
+                response.error = false;
+                // esto hace que se busque el id 
+                response.personaEncontrada = personaEnBD;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }
         }
 
     }
+
 }
