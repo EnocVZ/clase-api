@@ -1,4 +1,4 @@
-﻿namespace ClaseMiPrimerAPI.Model
+﻿namespace ClaseMiPrimerAPI      .Model
 {
     public class ResponseVehiculo
     {

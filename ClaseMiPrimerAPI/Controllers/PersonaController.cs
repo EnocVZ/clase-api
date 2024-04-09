@@ -12,8 +12,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly ILogger<PersonaController> logger;
-        private readonly PersonaContext context;
-        public PersonaController(ILogger<PersonaController> palogger, PersonaContext personaContext)
+        private readonly BDContext context;
+        public PersonaController(ILogger<PersonaController> palogger, BDContext personaContext)
         {
             this.logger = palogger;
             context = personaContext;

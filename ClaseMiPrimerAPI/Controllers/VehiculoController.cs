@@ -12,8 +12,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class VehiculoController : ControllerBase
     {
         private readonly ILogger<VehiculoController> logger;
-        private readonly PersonaContext context;
-        public VehiculoController(ILogger<VehiculoController> palogger, PersonaContext personaContext)
+        private readonly BDContext context;
+        public VehiculoController(ILogger<VehiculoController> palogger, BDContext personaContext)
         {
             this.logger = palogger;
             context = personaContext;
