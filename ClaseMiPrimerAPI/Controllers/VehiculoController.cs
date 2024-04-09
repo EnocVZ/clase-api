@@ -13,12 +13,13 @@ namespace ClaseMiPrimerAPI.Controllers
     public class VehiculoController : ControllerBase
     {
         private readonly VehiculoContext vehiculoContext;
+        ResponseVehiculo responseVehiculo = new ResponseVehiculo();
+
         public VehiculoController(VehiculoContext vehiculoContext)
         {
             this.vehiculoContext = vehiculoContext;
         }
 
-        ResponseVehiculo responseVehiculo = new ResponseVehiculo();
 
         [HttpGet]
         [Route("listaVehiculos")]
