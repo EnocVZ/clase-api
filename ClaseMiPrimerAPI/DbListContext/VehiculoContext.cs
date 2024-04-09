@@ -9,13 +9,15 @@ namespace ClaseMiPrimerAPI.DbListContext
         {
         }
 
-        public DbSet<Vehiculo> Vehiculos { get; set; }
-        //public DbSet<Persona> Personas { get; set; }
+        public DbSet<Vehiculo> Vehiculo { get; set; }
+        public DbSet<PersonaVehiculo> PersonaVehiculo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Vehiculo>().HasIndex(c => c.Id).IsUnique();
+            modelBuilder.Entity<PersonaVehiculo>().HasIndex(c => c.Id).IsUnique();
         }
+
     }
 }

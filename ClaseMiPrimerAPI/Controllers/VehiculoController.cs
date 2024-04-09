@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace ClaseMiPrimerAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class VehiculoController : ControllerBase
     {
         private readonly VehiculoContext context;
@@ -29,7 +31,7 @@ namespace ClaseMiPrimerAPI.Controllers
                     Modelo = vehiculo.Modelo
                 };
 
-                var savedData = await context.Vehiculos.AddAsync(vehiculoGuardar);
+                var savedData = await context.Vehiculo.AddAsync(vehiculoGuardar);
                 await context.SaveChangesAsync();
 
                 var response = new ResponseVehiculo
@@ -58,13 +60,13 @@ namespace ClaseMiPrimerAPI.Controllers
         {
             try
             {
-                var vehiculo = await context.Vehiculos.FindAsync(id);
+                var vehiculo = await context.Vehiculo.FindAsync(id);
                 if (vehiculo == null)
                 {
                     return NotFound();
                 }
 
-                context.Vehiculos.Remove(vehiculo);
+                context.Vehiculo.Remove(vehiculo);
                 await context.SaveChangesAsync();
 
                 return Ok(new ResponseGenerico
@@ -91,7 +93,7 @@ namespace ClaseMiPrimerAPI.Controllers
                     return BadRequest();
                 }
 
-                var vehiculoActualizar = await context.Vehiculos.FindAsync(id);
+                var vehiculoActualizar = await context.Vehiculo.FindAsync(id);
                 if (vehiculoActualizar == null)
                 {
                     return NotFound();
@@ -123,7 +125,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("buscarVehiculo/{id}")]
         public async Task<ActionResult<Vehiculo>> BuscarVehiculo(int id)
         {
-            var vehiculo = await context.Vehiculos.FindAsync(id);
+            var vehiculo = await context.Vehiculo.FindAsync(id);
 
             if (vehiculo == null)
             {
@@ -138,7 +140,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("obtenerVehiculoPorId/{id}")]
         public async Task<ActionResult<Vehiculo>> ObtenerVehiculoPorId(int id)
         {
-            var vehiculo = await context.Vehiculos.FindAsync(id);
+            var vehiculo = await context.Vehiculo.FindAsync(id);
 
             if (vehiculo == null)
             {
