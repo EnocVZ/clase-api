@@ -36,7 +36,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 await personaContext.Persona.AddAsync(persona);
                 await personaContext.SaveChangesAsync();
 
-                response.code = 200;
+                response.code = 200;    
                 response.message = "Se guardo correctamente";
                 response.error = false; 
 
