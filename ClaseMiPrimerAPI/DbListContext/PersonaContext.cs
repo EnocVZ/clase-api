@@ -11,11 +11,12 @@ namespace ClaseMiPrimerAPI.DbListContext
         }
 
         public DbSet<Persona> Persona { get; set; }
+        public DbSet<Vehiculo> Vehiculo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Persona>().HasIndex(c => c.Id).IsUnique();
+            modelBuilder.Entity<Persona>().HasIndex(p => p.Id).IsUnique();
         }
     }
 }

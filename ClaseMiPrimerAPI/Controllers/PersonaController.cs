@@ -167,9 +167,10 @@ namespace ClaseMiPrimerAPI.Controllers
                     Nombre = persona.Nombre,
                     Apellido = persona.Apellido
                 };
-                //metodos asincronos y sincronos
+                //metodos asincronos y sincronos esto es lo esencial para guardar
                 var savedData = await context.Persona.AddAsync(personaGuardar);
                 await context.SaveChangesAsync();
+               
                 response.code = 200;
                 response.message = "Se guardo";
                 ; response.error = false;

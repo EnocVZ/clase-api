@@ -13,14 +13,14 @@ namespace ClaseMiPrimerAPI.Controllers
     public class VehiculoController : ControllerBase
     {
         private readonly ILogger<VehiculoController> logger;
-        private readonly VehiculoContext context;
-        public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
+        private readonly PersonaContext context;
+        public VehiculoController(ILogger<VehiculoController> paramLogger, PersonaContext personaContext)
         {
             logger = paramLogger;
-            context = vehiculoContext;
+            context = personaContext;
         }
 
-     
+
         //_______________________________________________________________________________________________
 
         [HttpPost]
@@ -32,36 +32,33 @@ namespace ClaseMiPrimerAPI.Controllers
                 ResponseGetVehiculo response = new ResponseGetVehiculo();
                 Vehiculo VehiculoGuardar = new Vehiculo
                 {
-
                     Marca = vehiculo.Marca,
                     Modelo = vehiculo.Modelo,
                     Anio = vehiculo.Anio,
                     Color = vehiculo.Color
                 };
-                //metodos asincronos y sincronos
+
                 var savedData = await context.Vehiculo.AddAsync(VehiculoGuardar);
                 await context.SaveChangesAsync();
 
                 logger.LogInformation("Se ha guardado un vehículo con éxito.");
 
                 response.code = 200;
-                response.message = "Se guardo con exito el Vehiculo";
-                 response.error = false;
+                response.message = "Se guardo con éxito el Vehiculo";
+                response.error = false;
                 response.vehiculoEncontrado = new Vehiculo
-                {// esto es una forma de acceder se utliza para recuperar un id que se inserto y recuperarlo
+                {
                     Id = savedData.Entity.Id,
                     Marca = savedData.Entity.Marca,
                     Modelo = savedData.Entity.Modelo,
                     Anio = savedData.Entity.Anio,
                     Color = savedData.Entity.Color
-
-
                 };
+
                 return Ok(response);
             }
             catch (Exception ex)
             {
-
                 logger.LogError("Error al guardar el vehículo: " + ex.Message);
                 return BadRequest("Error al guardar el vehículo: " + ex.Message);
             }
@@ -153,6 +150,7 @@ namespace ClaseMiPrimerAPI.Controllers
             {// de aca parte la busqueda
                 ResponseGetVehiculo response = new ResponseGetVehiculo();
                 var vehiculoEnBD = await context.Vehiculo.FindAsync(id);
+                
                 await context.SaveChangesAsync();
 
                 response.code = 200;
@@ -172,3 +170,4 @@ namespace ClaseMiPrimerAPI.Controllers
     }
 }
 
+ 
