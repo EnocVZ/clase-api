@@ -9,6 +9,7 @@ namespace ClaseMiPrimerAPI.DbListContext
         public PersonaContext(DbContextOptions<PersonaContext> options) : base(options)
         {
         }
+        public DbSet<Vehiculo> Vehiculo { get; set; }
 
         public DbSet<Persona> Persona { get; set; }
 
