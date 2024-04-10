@@ -13,8 +13,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly ILogger<PersonaController> logger;
-        private readonly PersonaContext context;
-        public PersonaController(ILogger<PersonaController> paramLogger, PersonaContext personaContext) {
+        private readonly DBContext context;
+        public PersonaController(ILogger<PersonaController> paramLogger, DBContext personaContext) {
             logger = paramLogger;
             context = personaContext;
         }
@@ -162,6 +162,7 @@ namespace ClaseMiPrimerAPI.Controllers
             try
             {
                 ResponseGetPersona response = new ResponseGetPersona();
+               // se crea un nuevo objeto 
                 Persona personaGuardar = new Persona
                 {
                     Nombre = persona.Nombre,
@@ -169,6 +170,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 };
                 //metodos asincronos y sincronos esto es lo esencial para guardar
                 var savedData = await context.Persona.AddAsync(personaGuardar);
+                //esta linea hace qeu se guarde todo
                 await context.SaveChangesAsync();
                
                 response.code = 200;

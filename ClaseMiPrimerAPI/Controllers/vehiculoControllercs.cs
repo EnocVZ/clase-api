@@ -13,8 +13,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class VehiculoController : ControllerBase
     {
         private readonly ILogger<VehiculoController> logger;
-        private readonly PersonaContext context;
-        public VehiculoController(ILogger<VehiculoController> paramLogger, PersonaContext personaContext)
+        private readonly DBContext context;
+        public VehiculoController(ILogger<VehiculoController> paramLogger, DBContext personaContext)
         {
             logger = paramLogger;
             context = personaContext;
@@ -69,17 +69,19 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpGet]
         [Route("listaVehiculosBD")]
-        //busqueda
+        //busqueda se maneja un get para optener la lista
+        //Define el método listaVehiculosBD como un método asincrónico que devuelve una lista de objetos ResponseGetVehiculo 
         public async Task<ActionResult<IEnumerable<ResponseGetVehiculo>>> listaVehiculosBD()
         {
             try
             {// de aca parte la busqueda
                 ResponseGetVehiculo response = new ResponseGetVehiculo();
                 //metodos asincronos y sincronos
+                //Realiza una consulta asincrónica a la base de datos para obtener todos los vehículos y los guarda en savedData.
                 List<Vehiculo> savedData = await context.Vehiculo.ToListAsync();
                 await context.SaveChangesAsync();
                 response.code = 200;
-                response.message = "Se guardo";
+                response.message = "Se muetra la lista con exito";
                 response.error = false;
                 response.listaVehiculo = savedData;
                 return Ok(response);
@@ -105,7 +107,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
                 await context.SaveChangesAsync();
                 response.code = 200;
-                response.message = "Se guardo";
+                response.message = "Se actuaLizo con exito";
                 response.error = false;
 
                 return Ok(response);
@@ -154,7 +156,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 await context.SaveChangesAsync();
 
                 response.code = 200;
-                response.message = "Se ellimino";
+                response.message = "Se obtuvo vehiculo con exito";
                 response.error = false;
                 // esto hace que se busque el id 
                 response.vehiculoEncontrado = vehiculoEnBD;
