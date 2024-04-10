@@ -32,13 +32,22 @@ namespace ClaseMiPrimerAPI.Controllers
         {
             try
             {
-                var idPersona = await _context.PersonaVehiculo.FindAsync(personaVehiculo.IdPersona); //consulta que debo agregar al metodo de agregar relacion 
+                var idPersona = await _context.PersonaVehiculo.FindAsync(personaVehiculo.IdPersona); 
+
                 var idVehiculo = await _context.PersonaVehiculo.FindAsync(personaVehiculo.IdVehiculo); 
 
-                if(idPersona != null || idVehiculo != null)
+                if(idPersona != null)
                 {
                     _response.code = 500;
-                    _response.message = "ERROR EN ID.";
+                    _response.message = "ERROR EN ID DE PERSONA. ";
+                    _response.error = true;
+                    return Ok(_response);
+                }
+
+                if(idVehiculo != null)
+                {
+                    _response.code = 500;
+                    _response.message = "ERROR EN ID DE VEHICULO. ";
                     _response.error = true;
                     return Ok(_response);
                 }
