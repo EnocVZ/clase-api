@@ -3,7 +3,7 @@
     public class PersonaVehiculo
     {
         public int Id { get; set; }
-        public string Persona { get; set; }
-        public string Vehiculo { get; set; }
+        public int IdPersona { get; set; }
+        public int IdVehiculo { get; set; }
     }
 }

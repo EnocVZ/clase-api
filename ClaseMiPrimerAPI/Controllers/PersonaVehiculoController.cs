@@ -1,22 +1,39 @@
 ﻿using ClaseMiPrimerAPI.DbListContext;
+using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.Controllers;
-using ClaseMiPrimerAPI.DbListContext;
-using ClaseMiPrimerAPI.view;
+using APClaseMiPrimerAPII_3.view;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ClaseMiPrimerAPI.Controllers
+namespace API_3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonaVehiculoController : Controller
+    public class PersonaVehiculoController : ControllerBase
     {
-        private readonly ILogger<PersonaController> logger;
-        private readonly DBcontext context;
-        public PersonaVehiculoController(ILogger<PersonaController> paramLogger, PersonaContext personaContext)
+        private readonly ILogger<PersonaVehiculoController> logger;
+        private readonly PersonaContext context;
+        public PersonaVehiculoController(ILogger<PersonaVehiculoController> paramLogger, PersonaContext baseContext)
         {
-            this.logger = paramLogger;
-            context = personaContext;
+            logger = paramLogger;
+            context = baseContext;
+        }
+        [HttpGet]
+        [Route("listaPersonaBD")]
+        public async Task<ActionResult<List<PersonaVehiculo>>> listaPersonaBD()
+        {
+            try
+            {
+                ResponseGetPersona response = new ResponseGetPersona();
+                var savedData = await context.PersonaVehiculo.ToListAsync();
+                return Ok(savedData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
         [HttpDelete]
         [Route("eliminarPersonaDB")]
@@ -39,7 +56,44 @@ namespace ClaseMiPrimerAPI.Controllers
             {
                 return BadRequest(ex);
             }
+            
+        }
+        [HttpPost]
+        [Route("registrarPersonaVehiculo")]
 
+        public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
+        {
+            try
+            {
+                Persona persona = new Persona
+                {
+                    Nombre = request.Nombre,
+                    Apellido = request.Apellido
+                };
+                Vehiculo vehiculo = new Vehiculo
+                {
+                    Marca = request.Marca,
+                    Modelo = request.Modelo
+                };
+
+                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
+                var savePersona = await context.Persona.AddAsync(persona);
+                var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
+                await context.SaveChangesAsync();
+                personaVehiculo.IdPersona = savePersona.Entity.Id;
+                personaVehiculo.IdVehiculo = saveVehiculo.Entity.Id;
+                await context.PersonaVehiculo.AddAsync(personaVehiculo);
+                await context.SaveChangesAsync();
+
+                Response response = new Response();
+                return Ok(response);
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

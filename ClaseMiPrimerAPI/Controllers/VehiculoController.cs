@@ -5,7 +5,7 @@ using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ClaseMiPrimerAPI.Controllers
+namespace API_3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
