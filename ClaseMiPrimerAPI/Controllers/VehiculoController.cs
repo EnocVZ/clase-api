@@ -13,7 +13,7 @@ namespace ClaseMiPrimerAPI.Controllers
         private readonly ILogger<VehiculoController> logger;
         // private readonly PersonaContext context;
         private readonly VehiculoContext context;
-             public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
+        public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
         {
             logger = paramLogger;
             //context = personaContext;

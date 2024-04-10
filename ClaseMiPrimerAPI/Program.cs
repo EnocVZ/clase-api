@@ -1,3 +1,4 @@
+using ClaseMiPrimerAPI.Controllers;
 using ClaseMiPrimerAPI.DbListContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,10 @@ builder.Services.AddDbContext<PersonaContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
 });
 builder.Services.AddDbContext<VehiculoContext>(o =>
+{
+    o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
+});
+builder.Services.AddDbContext<PersonaVehiculoContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
 });
