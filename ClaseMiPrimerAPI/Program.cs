@@ -1,6 +1,5 @@
 using ClaseMiPrimerAPI.DbListContext;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PersonaContext>(o =>
-{
-    o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
-});
-
-builder.Services.AddDbContext<VehiculoContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
 });

@@ -1,4 +1,4 @@
-﻿using ClaseMiPrimerAPI.Model;
+﻿/*using ClaseMiPrimerAPI.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClaseMiPrimerAPI.DbListContext
@@ -10,14 +10,13 @@ namespace ClaseMiPrimerAPI.DbListContext
         }
 
         public DbSet<Vehiculo> Vehiculo { get; set; }
-        public DbSet<PersonaVehiculo> PersonaVehiculo { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Vehiculo>().HasIndex(c => c.Id).IsUnique();
-            modelBuilder.Entity<PersonaVehiculo>().HasIndex(c => c.Id).IsUnique();
         }
 
     }
-}
+}*/

@@ -11,29 +11,60 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaVehiculoController : ControllerBase
     {
         private readonly ILogger<PersonaVehiculoController> logger;
-        private readonly VehiculoContext context;
-        public PersonaVehiculoController(ILogger<PersonaVehiculoController> paramLogger, VehiculoContext vehiculoContext)
+        private readonly PersonaContext context;
+        public PersonaVehiculoController(ILogger<PersonaVehiculoController> paramLogger, PersonaContext personaContext)
         {
             logger = paramLogger;
-            context = vehiculoContext;
+            context = personaContext;
         }
 
         [HttpGet]
-        [Route("listaPersonaVehiculo")]
-        public async Task<ActionResult<ResponseVehiculo>> listaPersonaVehiculo()
+        [Route("listaPersonaDB")]
+        public async Task<ActionResult<List<PersonaVehiculo>>> listaPersonaDB()
         {
             try
             {
-                ResponseGenerico response = new ResponseGenerico();
+                ResponseGetPersona response = new ResponseGetPersona();
+                var savedData = await context.PersonaVehiculo.ToListAsync();
 
-                // Obtener la lista de PersonaVehiculo desde la base de datos
-                List<PersonaVehiculo> savedData = await context.PersonaVehiculo.ToListAsync();
+                return Ok(savedData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
 
-                response.Code = 200;
-                response.Message = "Se muestra";
-                response.Error = false;
-                response.listaPersonaVehiculo = savedData;
+        //Formulario para capturar el nombre de la persona con el vehiculo mas lujoso.
 
+        [HttpPost]
+        [Route("registrarPersonaVehiculo")]
+
+        public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
+        {
+            try
+            {
+                Persona persona = new Persona
+                {
+                    Nombre = request.Nombre,
+                    Apellido = request.Apellido,
+                };
+                Vehiculo vehiculo = new Vehiculo
+                {
+                    Modelo = request.Modelo,
+                };
+
+                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
+                
+                var savePersona = await context.Persona.AddAsync(persona);
+                var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
+                await context.SaveChangesAsync();
+                personaVehiculo.IdPersona = savePersona.Entity.Id;
+                personaVehiculo.IdVehiculo = saveVehiculo.Entity.Id;
+                await context.PersonaVehiculo.AddAsync(personaVehiculo);
+                await context.SaveChangesAsync();
+
+                Response response = new Response();
                 return Ok(response);
             }
             catch (Exception ex)

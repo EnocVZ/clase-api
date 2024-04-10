@@ -1,5 +1,6 @@
 ﻿using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
+using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,9 +14,9 @@ namespace ClaseMiPrimerAPI.Controllers
     [ApiController]
     public class VehiculoController : ControllerBase
     {
-        private readonly VehiculoContext context;
+        private readonly PersonaContext context;
 
-        public VehiculoController(VehiculoContext dbContext)
+        public VehiculoController(PersonaContext dbContext)
         {
             context = dbContext;
         }
@@ -148,6 +149,24 @@ namespace ClaseMiPrimerAPI.Controllers
             }
 
             return vehiculo;
+        }
+
+        [HttpGet]
+        [Route("lista")]
+
+        public async Task<ActionResult<List<Vehiculo>>> lista()
+        {
+            try
+            {
+                List<Vehiculo> dataList = await context.Vehiculo.ToListAsync();
+                await context.SaveChangesAsync();
+
+                return Ok(dataList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
