@@ -7,5 +7,6 @@
         public int IdPersona { get; set; }
 
         public int IdVehiculo { get; set; }
+
     }
 }

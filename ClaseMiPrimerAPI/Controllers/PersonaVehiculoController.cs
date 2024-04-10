@@ -1,5 +1,6 @@
 ﻿using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
+using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,176 +11,123 @@ namespace ClaseMiPrimerAPI.Controllers
 
     public class PersonaVehiculoController : Controller
     {
-        private readonly ILogger<VehiculoController> logger;
+        private readonly ILogger<PersonaVehiculoController> logger;
         private readonly BDContext context;
-        public PersonaVehiculoController(ILogger<VehiculoController> palogger, BDContext BDContext)
+        public PersonaVehiculoController(ILogger<PersonaVehiculoController> palogger, BDContext BDContext)
         {
             this.logger = palogger;
             context = BDContext;
         }
-        [HttpPost]
-        [Route("AgregarPersona")]
-        public async Task<ActionResult<Persona>> AgregarPersona(Persona nuevaPersona)
-        {
-            try
-            {
-                var result = await context.Persona.AddAsync(nuevaPersona);
-                await context.SaveChangesAsync();
-                return Ok(nuevaPersona);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
         [HttpGet]
-        [Route("ObtenerPersonas")]
-        public async Task<ActionResult<IEnumerable<Persona>>> ObtenerPersonas()
+        [Route("ObtenerPersonaVehiculo")]
+        public async Task<ActionResult<List<PersonaVehiculoController>>> listaPersonaBD()
         {
             try
             {
-                var personas = await context.Persona.ToListAsync();
-                return Ok(personas);
+                ResponseGetPersona response = new ResponseGetPersona();
+                var saveData = await context.PersonaVehiculo.ToListAsync();
+                return Ok(saveData);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
+           
         }
-
-        [HttpPut]
-        [Route("ActualizarPersona")]
-        public async Task<ActionResult<Persona>> ActualizarPersona(int personaId, Persona personaActualizada)
-        {
-            try
-            {
-                var personaEncontrada = await context.Persona.FindAsync(personaId);
-
-                if (personaEncontrada != null)
-                {
-                    personaEncontrada.Nombre = personaActualizada.Nombre;
-                    personaEncontrada.Apellido = personaActualizada.Apellido;
-                    await context.SaveChangesAsync();
-                    return Ok(personaEncontrada);
-                }
-                else
-                {
-                    return NotFound($"No se encontró una persona con el ID {personaId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [HttpDelete]
-        [Route("EliminarPersona")]
-        public async Task<ActionResult<Persona>> EliminarPersona(int personaId)
-        {
-            try
-            {
-                var personaAEliminar = await context.Persona.FindAsync(personaId);
-
-                if (personaAEliminar != null)
-                {
-                    context.Persona.Remove(personaAEliminar);
-                    await context.SaveChangesAsync();
-                    return Ok(personaAEliminar);
-                }
-                else
-                {
-                    return NotFound($"No se encontró una persona con el ID {personaId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
         [HttpPost]
-        [Route("AgregarVehiculo")]
-        public async Task<ActionResult<Vehiculo>> AgregarVehiculo(Vehiculo nuevoVehiculo)
+        [Route("GuardarPersonaVehiculo")]
+
+        public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
         {
             try
             {
-                var result = await context.Vehiculo.AddAsync(nuevoVehiculo);
+                Persona persona = new Persona
+                {
+                    Nombre = request.Nombre,
+                    Apellido = request.Apellido
+                };
+                Vehiculo vehiculo = new Vehiculo
+                {
+                    Marca = request.Marca,
+                    Modelo = request.Modelo,
+                    Anio = request.Anio
+                };
+                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
+
+                var savePersona = await context.Persona.AddAsync(persona);
+                var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
                 await context.SaveChangesAsync();
-                return Ok(nuevoVehiculo);
+                personaVehiculo.IdPersona = savePersona.Entity.Id;
+                personaVehiculo.IdVehiculo = saveVehiculo.Entity.id;
+                await context.PersonaVehiculo.AddAsync(personaVehiculo);
+                await context.SaveChangesAsync();
+                Response response = new Response();
+                return Ok(response);
+            
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);  
             }
         }
 
-        [HttpGet]
-        [Route("ObtenerVehiculos")]
-        public async Task<ActionResult<IEnumerable<Vehiculo>>> ObtenerVehiculos()
-        {
-            try
-            {
-                var vehiculos = await context.Vehiculo.ToListAsync();
-                return Ok(vehiculos);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
 
-        [HttpPut]
-        [Route("ActualizarVehiculo")]
-        public async Task<ActionResult<Vehiculo>> ActualizarVehiculo(int vehiculoId, Vehiculo vehiculoActualizado)
-        {
-            try
-            {
-                var vehiculoEncontrado = await context.Vehiculo.FindAsync(vehiculoId);
 
-                if (vehiculoEncontrado != null)
-                {
-                    vehiculoEncontrado.Marca = vehiculoActualizado.Marca;
-                    vehiculoEncontrado.Modelo = vehiculoActualizado.Modelo;
-                    vehiculoEncontrado.Anio = vehiculoActualizado.Anio;
-                    await context.SaveChangesAsync();
-                    return Ok(vehiculoEncontrado);
-                }
-                else
-                {
-                    return NotFound($"No se encontró un vehículo con el ID {vehiculoId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
 
-        [HttpDelete]
-        [Route("EliminarVehiculo")]
-        public async Task<ActionResult<Vehiculo>> EliminarVehiculo(int vehiculoId)
-        {
-            try
-            {
-                var vehiculoAEliminar = await context.Vehiculo.FindAsync(vehiculoId);
 
-                if (vehiculoAEliminar != null)
-                {
-                    context.Vehiculo.Remove(vehiculoAEliminar);
-                    await context.SaveChangesAsync();
-                    return Ok(vehiculoAEliminar);
-                }
-                else
-                {
-                    return NotFound($"No se encontró un vehículo con el ID {vehiculoId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
+
+
+
+        //public async Task<ActionResult<IEnumerable<PersonaVehiculo>>> ObtenerPersonaVehiculo()
+        //{
+        //    try
+        //    {
+        //        var personaVehiculo = from persona in context.Persona
+        //                              join vehiculo in context.Vehiculo on persona.Id equals vehiculo.id
+        //                              select new PersonaVehiculo { };
+
+
+        //        var personaVehiculoList = await personaVehiculo.ToListAsync();
+
+        //        return Ok(personaVehiculoList);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex);
+        //    }
+
+        //}
+        //[HttpPost]
+        //[Route("CrearPersonaVehiculo")]
+        //public async Task<ActionResult<PersonaVehiculo>> CrearPersonaVehiculo(PersonaVehiculo nuevoPersonaVehiculo)
+        //{
+        //    try
+        //    {
+        //        // Verificar si el modelo recibido es válido
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
+
+
+        //        var personaVehiculo = new PersonaVehiculo
+        //        {
+
+
+        //        };
+
+
+        //        context.PersonaVehiculo.Add(personaVehiculo);
+        //        await context.SaveChangesAsync();
+
+        //        return Ok(personaVehiculo); 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex); 
+        //    }
+        //}
     }
+
 }
+
