@@ -18,58 +18,89 @@ namespace ClaseMiPrimerAPI.Controllers
             this.logger = palogger;
             context = BDContext;
         }
+
+
         [HttpGet]
         [Route("ObtenerPersonaVehiculo")]
-        public async Task<ActionResult<List<PersonaVehiculoController>>> listaPersonaBD()
+        public async Task<ActionResult<List<RequestPersonaVehiculo>>> listaPersonaBD()
         {
             try
             {
-                ResponseGetPersona response = new ResponseGetPersona();
+                List<RequestPersonaVehiculo> listaRequest = new List<RequestPersonaVehiculo>();
+
                 var saveData = await context.PersonaVehiculo.ToListAsync();
-                return Ok(saveData);
+                foreach (var datos in saveData)
+                {
+                    var personaDatos = await context.Persona.FindAsync(datos.IdPersona);
+                    var vehiculoDatos = await context.Vehiculo.FindAsync(datos.IdVehiculo);
+
+                    // Verificar si personaDatos es null antes de acceder a sus propiedades
+                    if (personaDatos != null)
+                    {
+                        var requestVehiculoPersona = new RequestPersonaVehiculo
+                        {
+                            Nombre = personaDatos.Nombre,
+                            Apellido = personaDatos.Apellido,
+                            Marca = vehiculoDatos.Marca,
+                            Modelo = vehiculoDatos.Modelo,
+                        };
+                        listaRequest.Add(requestVehiculoPersona);
+                    }
+                    else
+                    {
+                        // Manejar el caso en el que personaDatos es null
+                        // Por ejemplo, puedes asignar valores predeterminados o lanzar una excepción
+                        // Aquí simplemente se ignora el registro
+                        continue;
+                    }
+                }
+
+                return Ok(listaRequest);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-           
         }
-        [HttpPost]
-        [Route("GuardarPersonaVehiculo")]
 
-        public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
-        {
-            try
-            {
-                Persona persona = new Persona
-                {
-                    Nombre = request.Nombre,
-                    Apellido = request.Apellido
-                };
-                Vehiculo vehiculo = new Vehiculo
-                {
-                    Marca = request.Marca,
-                    Modelo = request.Modelo,
-                    Anio = request.Anio
-                };
-                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
 
-                var savePersona = await context.Persona.AddAsync(persona);
-                var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
-                await context.SaveChangesAsync();
-                personaVehiculo.IdPersona = savePersona.Entity.Id;
-                personaVehiculo.IdVehiculo = saveVehiculo.Entity.id;
-                await context.PersonaVehiculo.AddAsync(personaVehiculo);
-                await context.SaveChangesAsync();
-                Response response = new Response();
-                return Ok(response);
-            
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);  
-            }
-        }
+
+        //    [HttpPost]
+        //[Route("GuardarPersonaVehiculo")]
+
+        //public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
+        //{
+        //    try
+        //    {
+        //        Persona persona = new Persona
+        //        {
+        //            Nombre = request.Nombre,
+        //            Apellido = request.Apellido
+        //        };
+        //        Vehiculo vehiculo = new Vehiculo
+        //        {
+        //            Marca = request.Marca,
+        //            Modelo = request.Modelo,
+        //            Anio = request.Anio
+        //        };
+        //        PersonaVehiculo personaVehiculo = new PersonaVehiculo();
+
+        //        var savePersona = await context.Persona.AddAsync(persona);
+        //        var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
+        //        await context.SaveChangesAsync();
+        //        personaVehiculo.IdPersona = savePersona.Entity.Id;
+        //        personaVehiculo.IdVehiculo = saveVehiculo.Entity.id;
+        //        await context.PersonaVehiculo.AddAsync(personaVehiculo);
+        //        await context.SaveChangesAsync();
+        //        Response response = new Response();
+        //        return Ok(response);
+
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);  
+        //    }
+        //}
 
 
 
