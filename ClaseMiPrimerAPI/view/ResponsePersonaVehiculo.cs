@@ -9,6 +9,7 @@ namespace ClaseMiPrimerAPI.view
         public int IdPersonaVehiculo { get; set; }
         public PersonaVehiculo RelacionPersonaVehiculo { get; set; }
         public List<PersonaVehiculo> personasVehiculos { get; set; }
-        
+        public List<DatosPersonaVehiculo> AutoData { get; set; }
+
     }
 }
