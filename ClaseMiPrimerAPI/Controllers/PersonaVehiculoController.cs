@@ -30,26 +30,46 @@ namespace ClaseMiPrimerAPI.Controllers
                 List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
                 for (var i = 0; i < listaPersonaVehiculo.Count; i++) //numero de ids cantidad de realciones
                 {
-                    var personaVehiculo = listaPersonaVehiculo[i];
-                    var persona = listaPersona.Where(p => p.Id == personaVehiculo.IdPersona).FirstOrDefault();
-                    var vehiculo = listaVehiculo.Where(v => v.Id == personaVehiculo.IdVehiculo).FirstOrDefault(); 
-                    if(persona != null && vehiculo != null && personaVehiculo != null)
+                    var personaVehiculoList = listaPersonaVehiculo[i];
+                    var persona = listaPersona.Where(p => p.Id == personaVehiculoList.IdPersona).FirstOrDefault();
+                    var vehiculo = listaVehiculo.Where(v => v.Id == personaVehiculoList.IdVehiculo).FirstOrDefault(); 
+                    if(persona != null && vehiculo != null && personaVehiculoList != null)
                     {
                         DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
                         {
-                            IdPersonaVehiculo = personaVehiculo.Id,
+                            IdPersonaVehiculo = personaVehiculoList.Id,
                             Nombre = persona.Nombre,
                             Apellido = persona.Apellido, 
                             Modelo = vehiculo.Modelo, 
-                            Color = vehiculo.Color
+                            Color = vehiculo.Color, 
+                            Uso = personaVehiculoList.Uso
                         };
                         listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
                     }
                 }
+                /*
                 _response.error = false;
                 _response.code = 200;
                 _response.data = listaDatosPersonaVehiculo;
                 return Ok(_response); 
+                */
+                var personaVehiculo = await _context.PersonaVehiculo
+                    .Join(_context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo,persona) => new DatosPersonaVehiculo
+                    {
+                        Nombre = persona.Nombre,
+                        Apellido = persona.Apellido
+                    }).ToListAsync();
+
+                var vehiculoPersona = await _context.PersonaVehiculo
+                    .Join(_context.Vehiculo, pV => pV.IdVehiculo, p => p.Id, (personaVehiculo, vehiculo) => new DatosPersonaVehiculo
+                    {
+                        Modelo = vehiculo.Modelo,
+                        Color = vehiculo.Color
+                    }).ToListAsync();
+                _response.error = false;
+                _response.code = 200;
+                _response.data = listaDatosPersonaVehiculo;
+                return Ok(_response);
             }
             catch (Exception ex)    
             {

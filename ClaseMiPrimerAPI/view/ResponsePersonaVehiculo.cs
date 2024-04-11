@@ -6,7 +6,6 @@ namespace ClaseMiPrimerAPI.view
     {
 
         public List<DatosPersonaVehiculo> data { get; set; }
-
         public int IdPersonaVehiculo { get; set; }
         public PersonaVehiculo RelacionPersonaVehiculo { get; set; } 
         public List<PersonaVehiculo> personasVehiculos { get; set; }
