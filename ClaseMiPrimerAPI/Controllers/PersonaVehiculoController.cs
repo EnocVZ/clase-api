@@ -11,7 +11,6 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaVehiculoController : Controller
     {
         private readonly BaseDatosContext _context;
-
         ResponsePersonaVehiculo _response = new ResponsePersonaVehiculo();
 
         public PersonaVehiculoController(BaseDatosContext _context)
@@ -19,43 +18,40 @@ namespace ClaseMiPrimerAPI.Controllers
             this._context = _context;
         }
 
-
-
-
         [HttpGet]
         [Route("listaRelacionesPersonasVehiculos")]
-        public async Task<ActionResult<ResponsePersonaVehiculo>> listaRelacionesPersonasVehiculos()
+        public async Task<ActionResult<RequestPersonaVehiculo>> listaRelacionesPersonasVehiculos()
         {
             try
             {
                 var listaPersonaVehiculo = await _context.PersonaVehiculo.ToListAsync();
                 var listaPersona = await _context.Persona.ToListAsync();
                 var listaVehiculo = await _context.Vehiculo.ToListAsync();
-                List<DatosPersonaVehiculo> listaDatosPerosnaVehiculo = new List<DatosPersonaVehiculo>();
-
-
-                for (var i = 0; i < listaPersonaVehiculo.Count; i++)
+                List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
+                for (var i = 0; i < listaPersonaVehiculo.Count; i++) //numero de ids cantidad de realciones
                 {
-                    var personaVehiculoXX = listaPersonaVehiculo[i];
-                    var persona = listaPersona.Where(p => p.Id == personaVehiculoXX.IdPersona).FirstOrDefault();
-                    if(persona != null)
+                    var personaVehiculo = listaPersonaVehiculo[i];
+                    var persona = listaPersona.Where(p => p.Id == personaVehiculo.IdPersona).FirstOrDefault();
+                    var vehiculo = listaVehiculo.Where(v => v.Id == personaVehiculo.IdVehiculo).FirstOrDefault(); 
+                    if(persona != null && vehiculo != null && personaVehiculo != null)
                     {
                         DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
                         {
+                            IdPersonaVehiculo = personaVehiculo.Id,
                             Nombre = persona.Nombre,
-                            Apellido = persona.Apellido
-
+                            Apellido = persona.Apellido, 
+                            Modelo = vehiculo.Modelo, 
+                            Color = vehiculo.Color
                         };
-                        listaDatosPerosnaVehiculo.Add(datosPersonaVehiculo);
+                        listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
                     }
-                    
                 }
                 _response.error = false;
                 _response.code = 200;
-                _response.data = listaDatosPerosnaVehiculo;
+                _response.data = listaDatosPersonaVehiculo;
                 return Ok(_response); 
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 return Ok(ex.Message);
                 //Object reference not set to an instance of an object.

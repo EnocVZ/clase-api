@@ -19,8 +19,6 @@ namespace ClaseMiPrimerAPI.DbListContext
             modelBuilder.Entity<Persona>().HasIndex(c => c.Id).IsUnique();
             modelBuilder.Entity<Vehiculo>().HasIndex(c => c.Id).IsUnique();
             modelBuilder.Entity<PersonaVehiculo>().HasIndex(c => c.Id).IsUnique();
-
-
         }
     }
 }

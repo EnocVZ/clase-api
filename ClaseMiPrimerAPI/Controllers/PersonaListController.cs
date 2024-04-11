@@ -37,10 +37,10 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
         [HttpPost("guardarPersonaList")]
-        public ResponsePostPersona GuardarPersonaList(Persona persona)
+        public ResponsePersona GuardarPersonaList(Persona persona)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
-            ResponsePostPersona response = new ResponsePostPersona();
+            ResponsePersona response = new ResponsePersona();
             if (persona.Id == null)
             {
                 response.code = 200;
@@ -60,10 +60,10 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
         [HttpGet("listarPersonasList")]
-        public ResponseGetPersona listaPersona(int id)
+        public ResponsePersona listaPersona(int id)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
-            ResponseGetPersona response = new ResponseGetPersona();
+            ResponsePersona response = new ResponsePersona();
 
             Persona personaEncontrada = new Persona();
 
@@ -81,10 +81,10 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
         [HttpPut("actualizarPersonaList")]
-        public ResponsePutPersona actualizarPersona(Persona persona)
+        public ResponsePersona actualizarPersona(Persona persona)
         {
             List<Persona> listaPersona = this.listaPersonasRegistradas();
-            ResponsePutPersona response = new ResponsePutPersona();
+            ResponsePersona response = new ResponsePersona();
             Persona personaModificada = new Persona();
             for (int i = 0; i < listaPersona.Count; i++)
             {
@@ -104,9 +104,9 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
         [HttpDelete("eliminarPersonaList")]
-        public ResponsePostPersona eliminarPersonaEnoc(int id)
+        public ResponsePersona eliminarPersonaEnoc(int id)
         {
-            ResponsePostPersona response = new ResponsePostPersona();
+            ResponsePersona response = new ResponsePersona();
             List<Persona> listaPersona = this.listaPersonasRegistradas();
             List<Persona> listaPersonaCopia = new List<Persona>();
             for (int i = 0; i < listaPersona.Count; i++)

@@ -59,7 +59,7 @@ namespace ClaseMiPrimerAPI.Controllers
         {
             Persona buscarPersona = await _context.Persona.FindAsync(id);
 
-            ResponseGetPersona responseBuscar = new ResponseGetPersona();
+            ResponsePersona responseBuscar = new ResponsePersona();
 
             if(buscarPersona == null)
             {
@@ -80,7 +80,7 @@ namespace ClaseMiPrimerAPI.Controllers
         public async Task<IActionResult> actualizarPersona(int id, RequestPersona persona)
         {
             var personaExiste = await _context.Persona.FindAsync(id);
-            ResponseGetPersona responseActualizar = new ResponseGetPersona();
+            ResponsePersona responseActualizar = new ResponsePersona();
 
             if (personaExiste == null)
             {
@@ -108,7 +108,7 @@ namespace ClaseMiPrimerAPI.Controllers
         public async Task<IActionResult> eliminarPersona(int id)
         {
             var personaEliminada = await _context.Persona.FindAsync(id);
-            ResponseGetPersona responseEliminar = new ResponseGetPersona();
+            ResponsePersona responseEliminar = new ResponsePersona();
             if (personaEliminada == null)
             {
                 responseEliminar.error = true;
