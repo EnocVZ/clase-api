@@ -1,11 +1,12 @@
-﻿using ClaseMiPrimerAPI.DbListContext;
-using ClaseMiPrimerAPI.Model;
-using ClaseMiPrimerAPI.Controllers;
-using APClaseMiPrimerAPII_3.view;
+﻿using API_3.DbListContext;
+using API_3.Model;
+using API_3.Controllers;
+using API_3.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Microsoft.Identity.Client;
 
 namespace API_3.Controllers
 {
@@ -56,7 +57,7 @@ namespace API_3.Controllers
             {
                 return BadRequest(ex);
             }
-            
+
         }
         [HttpPost]
         [Route("registrarPersonaVehiculo")]
@@ -73,8 +74,9 @@ namespace API_3.Controllers
                 Vehiculo vehiculo = new Vehiculo
                 {
                     Marca = request.Marca,
-                    Modelo = request.Modelo
+                    Modelo = request.Modelo,
                 };
+
 
                 PersonaVehiculo personaVehiculo = new PersonaVehiculo();
                 var savePersona = await context.Persona.AddAsync(persona);
@@ -89,6 +91,48 @@ namespace API_3.Controllers
                 return Ok(response);
 
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+        [HttpGet]
+        [Route("lista")]
+        public async Task<ActionResult<ResponsePersonaVehiculo>> lista()
+        {
+            try
+            {
+                ResponsePersonaVehiculo response = new ResponsePersonaVehiculo();
+                var listaPersonaVehiculo = await context.PersonaVehiculo.ToListAsync();
+                var listaPersona = await context.Persona.ToListAsync();
+                var listaVehiculo = await context.Vehiculo.ToListAsync();
+                List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
+                for(var i = 0; i <= listaPersonaVehiculo.Count; i++)
+                {
+                    var personaVehiculo = listaPersonaVehiculo[i];
+                    var persona = listaPersona.Where(persona => persona.Id == personaVehiculo.IdPersona).FirstOrDefault();
+                    var vehiculo = listaVehiculo.Where(car => car.Id == personaVehiculo.IdVehiculo).FirstOrDefault();
+                    if(persona != null && vehiculo != null)
+                    {
+                        DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
+                        {
+                            IdPersonaVehiculo = personaVehiculo.Id,
+                            Nombre = persona.Nombre,
+                            Apellido = persona.Apellido,
+                            Marca = vehiculo.Marca,
+                            Modelo = vehiculo.Modelo
+
+                        };
+                        listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
+                    }
+
+                }
+                response.data = listaDatosPersonaVehiculo;
+                return response;
             }
             catch (Exception ex)
             {
