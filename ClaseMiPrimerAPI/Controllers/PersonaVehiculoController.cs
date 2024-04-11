@@ -8,14 +8,13 @@ namespace ClaseMiPrimerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonaVehiculoController : ControllerBase
+    public class PersonaVehiculoController : Controller
     {
-        private readonly PersonaVehiculoContext _context;
-        private readonly PersonaContext _personaContext;
-        private readonly VehiculoContext _vehiculoContext; 
+        private readonly BaseDatosContext _context;
+
         ResponsePersonaVehiculo _response = new ResponsePersonaVehiculo();
 
-        public PersonaVehiculoController(PersonaVehiculoContext _context)
+        public PersonaVehiculoController(BaseDatosContext _context)
         {
             this._context = _context;
         }
@@ -30,8 +29,8 @@ namespace ClaseMiPrimerAPI.Controllers
             try
             {
                 var listaPersonaVehiculo = await _context.PersonaVehiculo.ToListAsync();
-                var listaPersona = await _personaContext.Persona.ToListAsync();
-                var listaVehiculo = await _vehiculoContext.Vehiculo.ToListAsync();
+                var listaPersona = await _context.Persona.ToListAsync();
+                var listaVehiculo = await _context.Vehiculo.ToListAsync();
                 List<DatosPersonaVehiculo> listaDatosPerosnaVehiculo = new List<DatosPersonaVehiculo>();
 
 

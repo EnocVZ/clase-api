@@ -12,9 +12,9 @@ namespace ClaseMiPrimerAPI.Controllers
     [ApiController]
     public class PersonaController : ControllerBase
     {
-        private readonly PersonaContext personaContext;
-        public PersonaController(PersonaContext personaContext) {   
-            this.personaContext = personaContext;
+        private readonly BaseDatosContext _context;
+        public PersonaController(BaseDatosContext personaContext) {   
+            this._context = personaContext;
         }
 
         Response response = new Response();
@@ -23,18 +23,23 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("listaPersonas")]
         public async Task<ActionResult<IEnumerable<Vehiculo>>> listaPersonas()
         {
-            var personas = await personaContext.Persona.ToListAsync(); 
+            var personas = await _context.Persona.ToListAsync(); 
             return Ok(personas);    
         }
 
         [HttpPost]
         [Route("crearPersona")]
-        public async Task<ActionResult<Response>> crearPersona(Persona persona)
+        public async Task<ActionResult<Response>> crearPersona(RequestPersona persona)
         {
             try
-            {   
-                await personaContext.Persona.AddAsync(persona);
-                await personaContext.SaveChangesAsync();
+            {
+                Persona guardarPersona = new Persona 
+                { 
+                    Nombre = persona.Nombre,
+                    Apellido = persona.Apellido
+                }; 
+                await _context.Persona.AddAsync(guardarPersona);
+                await _context.SaveChangesAsync();
 
                 response.code = 200;    
                 response.message = "Se guardo correctamente";
@@ -52,7 +57,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("buscarPersona")]
         public async Task<IActionResult> buscarPersona(int id)
         {
-            Persona buscarPersona = await personaContext.Persona.FindAsync(id);
+            Persona buscarPersona = await _context.Persona.FindAsync(id);
 
             ResponseGetPersona responseBuscar = new ResponseGetPersona();
 
@@ -74,7 +79,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("actualizarPersona")]
         public async Task<IActionResult> actualizarPersona(int id, RequestPersona persona)
         {
-            var personaExiste = await personaContext.Persona.FindAsync(id);
+            var personaExiste = await _context.Persona.FindAsync(id);
             ResponseGetPersona responseActualizar = new ResponseGetPersona();
 
             if (personaExiste == null)
@@ -87,7 +92,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
             personaExiste.Nombre = persona.Nombre;
             personaExiste.Apellido = persona.Apellido;
-            await personaContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             responseActualizar.error = false;
             responseActualizar.personaEncontrada = personaExiste;
@@ -102,7 +107,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("eliminarPersona")]
         public async Task<IActionResult> eliminarPersona(int id)
         {
-            var personaEliminada = await personaContext.Persona.FindAsync(id);
+            var personaEliminada = await _context.Persona.FindAsync(id);
             ResponseGetPersona responseEliminar = new ResponseGetPersona();
             if (personaEliminada == null)
             {
@@ -112,8 +117,8 @@ namespace ClaseMiPrimerAPI.Controllers
                 return NotFound(responseEliminar);
             }
 
-            personaContext.Persona.Remove(personaEliminada);
-            await personaContext.SaveChangesAsync();
+            _context.Persona.Remove(personaEliminada);
+            await _context.SaveChangesAsync();
             responseEliminar.error = false;
             responseEliminar.message = "Persona eliminada"; 
             responseEliminar.code = 200;
