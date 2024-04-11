@@ -12,8 +12,8 @@ namespace ClaseMiPrimerAPI.Controllers
     {
         private readonly ILogger<VehiculoController> logger;
         // private readonly PersonaContext context;
-        private readonly VehiculoContext context;
-        public VehiculoController(ILogger<VehiculoController> paramLogger, VehiculoContext vehiculoContext)
+        private readonly Contextt context;
+        public VehiculoController(ILogger<VehiculoController> paramLogger, Contextt vehiculoContext)
         {
             logger = paramLogger;
             //context = personaContext;
@@ -203,7 +203,24 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
 
+        //------------------------------ LISTA --------------------------------------
+        [HttpGet]
+        [Route("lista")]
 
+        public async Task<ActionResult<List<Vehiculo>>> lista()
+        {
+            try
+            {
+                List<Vehiculo> dataList = await context.Vehiculo.ToListAsync();
+                await context.SaveChangesAsync();
+
+                return Ok(dataList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 

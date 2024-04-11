@@ -12,16 +12,16 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly ILogger<PersonaController> logger;
-        private readonly PersonaContext context;
+        private readonly Contextt context;
         //private readonly VehiculoContext contextv;
-        public PersonaController(ILogger<PersonaController> paramLogger, PersonaContext personaContext)
+        public PersonaController(ILogger<PersonaController> paramLogger, Contextt personaContext)
         {
             logger = paramLogger;
             context = personaContext;
            // contextv = vehiculoContext;
             
         }
-
+        /*
 
         [HttpGet("listaPersonasRegistradas")]
         public List<Persona> listaPersonasRegistradas()
@@ -43,7 +43,8 @@ namespace ClaseMiPrimerAPI.Controllers
 
             return listPersona;
         }
-
+        */
+        /*
         [HttpPost("guardar")]
         public ResponsePostPersona Guardar(Persona persona)
         {
@@ -71,11 +72,11 @@ namespace ClaseMiPrimerAPI.Controllers
             return response;
 
         }
-
+        */
 
 
         //devolver el objeto de la persona con el id que se manda en parametro
-
+        /*
         [HttpGet("listaPersona")]
         public ResponseGetPersona listaPersona(int id)
         {
@@ -100,10 +101,11 @@ namespace ClaseMiPrimerAPI.Controllers
 
             return response;
         }
-
+        */
 
         //actualizar el nombre y apellido de la persona en base a id
         //devolver el id de la persona modificada
+        /*
         [HttpPut("actualizarPersona")]
         public ResponsePutPersona actualizarPersona(Persona persona)
         {
@@ -134,7 +136,8 @@ namespace ClaseMiPrimerAPI.Controllers
 
             return response;
         }
-
+        */
+        /*
         [HttpDelete("eliminarPersona")]
         public ResponsePostPersona eliminarPersona(int id)
         {
@@ -156,6 +159,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
             return response;
         }
+        */
         /*
 
         [HttpPost]
@@ -181,6 +185,7 @@ namespace ClaseMiPrimerAPI.Controllers
             }
         }
         */
+
         [HttpPost]
         [Route("guardarPersonaEnBD")]
         public async Task<ActionResult<ResponseGetPersona>> guardarPersonaEnBD(RequestPersona persona)
