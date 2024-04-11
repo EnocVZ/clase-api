@@ -11,6 +11,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class PersonaVehiculoController : ControllerBase
     {
         private readonly PersonaVehiculoContext _context;
+        private readonly PersonaContext _personaContext;
+        private readonly VehiculoContext _vehiculoContext; 
         ResponsePersonaVehiculo _response = new ResponsePersonaVehiculo();
 
         public PersonaVehiculoController(PersonaVehiculoContext _context)
@@ -18,13 +20,53 @@ namespace ClaseMiPrimerAPI.Controllers
             this._context = _context;
         }
 
+
+
+
         [HttpGet]
         [Route("listaRelacionesPersonasVehiculos")]
-        public async Task<ActionResult<IEnumerable<PersonaVehiculo>>> listaRelacionesPersonasVehiculos()
+        public async Task<ActionResult<ResponsePersonaVehiculo>> listaRelacionesPersonasVehiculos()
         {
-            var PersonaVehiculo = await _context.PersonaVehiculo.ToListAsync(); 
-            return Ok(PersonaVehiculo);
+            try
+            {
+                var listaPersonaVehiculo = await _context.PersonaVehiculo.ToListAsync();
+                var listaPersona = await _personaContext.Persona.ToListAsync();
+                var listaVehiculo = await _vehiculoContext.Vehiculo.ToListAsync();
+                List<DatosPersonaVehiculo> listaDatosPerosnaVehiculo = new List<DatosPersonaVehiculo>();
+
+
+                for (var i = 0; i < listaPersonaVehiculo.Count; i++)
+                {
+                    var personaVehiculoXX = listaPersonaVehiculo[i];
+                    var persona = listaPersona.Where(p => p.Id == personaVehiculoXX.IdPersona).FirstOrDefault();
+                    if(persona != null)
+                    {
+                        DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
+                        {
+                            Nombre = persona.Nombre,
+                            Apellido = persona.Apellido
+
+                        };
+                        listaDatosPerosnaVehiculo.Add(datosPersonaVehiculo);
+                    }
+                    
+                }
+                _response.error = false;
+                _response.code = 200;
+                _response.data = listaDatosPerosnaVehiculo;
+                return Ok(_response); 
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+                //Object reference not set to an instance of an object.
+
+            }
+
         }
+
+
+
 
         [HttpPost]
         [Route("agregarRelacionPersonaVehiculo")]
@@ -41,15 +83,17 @@ namespace ClaseMiPrimerAPI.Controllers
                     _response.code = 500;
                     _response.message = "ERROR EN ID DE PERSONA. ";
                     _response.error = true;
-                    return Ok(_response);
+                    return Ok(_response); //cambiar el return de lugar aqui termina, no debe temranr aqui 
                 }
-
+                /*
+                 join 
+                 */
                 if(idVehiculo != null)
                 {
                     _response.code = 500;
                     _response.message = "ERROR EN ID DE VEHICULO. ";
                     _response.error = true;
-                    return Ok(_response);
+                    return Ok(_response); //cambiar el return de lugar 
                 }
                 else
                 {

@@ -1,0 +1,21 @@
+INNER JOIN TABLAS COMPLETAS 
+
+use [pruebasApi]
+go
+
+select * from [dbo].[PersonaVehiculo] as pv
+inner join [dbo].[Persona] as p on p.Id = pv.IdPersona
+inner join [dbo].[Vehiculo] as v on v.Id = pv.IdVehiculo
+go 
+
+selecciona de la tabla PersonaVehiculo como pv uniendola con la tabla persona como p
+en donde el id de persona se asocie con el idPersona en la tabla persona vehiculo. 
+
+INNER JOIN CONSULTAS ESPECIFICAS 
+use [pruebasApi]
+go
+
+select p.Nombre, p.Apellido, v.Marca, v.Modelo from [dbo].[PersonaVehiculo] as pv
+inner join [dbo].[Persona] as p on p.Id = pv.IdPersona
+inner join [dbo].[Vehiculo] as v on v.Id = pv.Id
+go 
