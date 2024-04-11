@@ -19,19 +19,64 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
         [HttpGet]
-        [Route("listaPersonaDB")]
-        public async Task<ActionResult<List<PersonaVehiculo>>> listaPersonaDB()
+        [Route("lista")]
+        public async Task<ActionResult<ResponsePersonaVehiculo>> lista()
         {
             try
             {
-                ResponseGetPersona response = new ResponseGetPersona();
-                var savedData = await context.PersonaVehiculo.ToListAsync();
+                ResponsePersonaVehiculo response = new ResponsePersonaVehiculo();
+                var listaPersonaVehiculo = await context.PersonaVehiculo.ToListAsync();
+                //var savedData = await context.PersonaVehiculo.ToListAsync();
+                var listaPersona = await context.Persona.ToListAsync();
+                var listaVehiculo = await context.Vehiculo.ToListAsync();
+                List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
 
-                return Ok(savedData);
+                for (var i = 0; i <= listaPersonaVehiculo.Count; i++)
+                {
+                    var personaVehiculo = listaPersonaVehiculo[i];
+                    var persona = listaPersona.Where(persona => persona.Id == personaVehiculo.IdPersona).FirstOrDefault();
+                    var vehiculo = listaVehiculo.Where(car => car.Id == personaVehiculo.IdVehiculo).FirstOrDefault();
+
+
+                    if (persona != null && vehiculo != null)
+                    {
+                        DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
+                        {
+                            IdPersonaVehiculo = personaVehiculo.Id,
+                            Nombre = persona.Nombre,
+                            Apellido = persona.Apellido,
+                            Modelo = vehiculo.Modelo
+                        };
+
+                        listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
+                    }
+                }
+                var PersonaAuto = await context.PersonaVehiculo
+                    .Join(context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo, persona) => new DatosPersonaVehiculo
+                    {
+                        Nombre = persona.Nombre,
+                        Apellido = persona.Apellido
+                    })
+                    .ToListAsync();
+
+                response.data = PersonaAuto;
+
+                //nuevo
+                var AutoPersona = await context.PersonaVehiculo
+                    .Join(context.Vehiculo, pV => pV.IdVehiculo, p => p.Id, (personaVehiculo, vehiculo) => new DatosPersonaVehiculo
+                    {
+                        Modelo = vehiculo.Modelo,
+                    })
+                    .ToListAsync();
+
+                response.data = AutoPersona;
+                //aqui acaba
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
