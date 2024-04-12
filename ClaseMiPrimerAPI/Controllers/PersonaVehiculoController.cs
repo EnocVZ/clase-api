@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Microsoft.Identity.Client;
+using System.Reflection.Metadata.Ecma335;
 
 namespace API_3.Controllers
 {
@@ -111,28 +112,47 @@ namespace API_3.Controllers
                 var listaPersona = await context.Persona.ToListAsync();
                 var listaVehiculo = await context.Vehiculo.ToListAsync();
                 List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
-                for(var i = 0; i <= listaPersonaVehiculo.Count; i++)
+
+                var PersonaAuto = (from pv in context.PersonaVehiculo
+                                   join p in context.Persona on pv.IdPersona equals p.Id
+                                   join v in context.Vehiculo on pv.IdVehiculo equals v.Id
+                                   select new { pv.Id, v, p }).ToList();
+
+
+
+                var PersonaAuto2 = await context.PersonaVehiculo
+                    .Join(context.Persona, personaVehiculo => personaVehiculo.IdPersona, persona => persona.Id, (personaVehiculo, persona) => new { personaVehiculo })
+                    .Join(context.Vehiculo, joined => joined.personaVehiculo.IdVehiculo, vehiculo => vehiculo.Id, (joined, vehiculo) => new DatosPersonaVehiculo { 
+                        Nombre = joined.persona.Nombre,
+                        Marca = vehiculo.Marca
+                    })
+                    .ToListAsync();
+
+                var listPrueba = await context.PersonaVehiculo.Select(pv => new
                 {
-                    var personaVehiculo = listaPersonaVehiculo[i];
-                    var persona = listaPersona.Where(persona => persona.Id == personaVehiculo.IdPersona).FirstOrDefault();
-                    var vehiculo = listaVehiculo.Where(car => car.Id == personaVehiculo.IdVehiculo).FirstOrDefault();
-                    if(persona != null && vehiculo != null)
-                    {
-                        DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
-                        {
-                            IdPersonaVehiculo = personaVehiculo.Id,
-                            Nombre = persona.Nombre,
-                            Apellido = persona.Apellido,
-                            Marca = vehiculo.Marca,
-                            Modelo = vehiculo.Modelo
-
-                        };
-                        listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
-                    }
-
-                }
+                    persona = context.Persona.FindAsync(pv.IdPersona),
+                    vehiculo = context.Vehiculo.FirstAsync(pv.IdVehiculo)
+                }).ToListAsync();
                 response.data = listaDatosPersonaVehiculo;
-                return response;
+
+                var personaVehiculo = await context.PersonaVehiculo
+                    .Join(context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo, persona) => new DatosPersonaVehiculo
+                    {
+                        Nombre = persona.Nombre,
+                        Apellido = persona.Apellido
+                    }).ToListAsync();
+
+                var vehiculoPersona = await context.PersonaVehiculo
+                    .Join(context.Vehiculo, pV => pV.IdVehiculo, p => p.Id, (personaVehiculo, vehiculo) => new DatosPersonaVehiculo
+                    {
+                        Modelo = vehiculo.Modelo,
+                        Marca = vehiculo.Marca
+                    }).ToListAsync();
+
+                var listaPrueba = await context.PersonaVehiculo.Select(pv => new { }).ToListAsync();
+                response.data = listaDatosPersonaVehiculo;
+
+                return Ok(PersonaAuto);
             }
             catch (Exception ex)
             {
