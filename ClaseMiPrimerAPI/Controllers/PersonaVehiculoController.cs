@@ -20,7 +20,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpGet]
         [Route("listaRelacionesPersonasVehiculos")]
-        public async Task<ActionResult<RequestPersonaVehiculo>> listaRelacionesPersonasVehiculos()
+        public async Task<ActionResult<RelacionPersonaVehiculo>> listaRelacionesPersonasVehiculos()
         {
             try
             {
@@ -85,33 +85,34 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpPost]
         [Route("agregarRelacionPersonaVehiculo")]
-        public async Task<ActionResult<ResponsePersonaVehiculo>> agregarRelacionPersonaVehiculo(PersonaVehiculo personaVehiculo)
+        public async Task<ActionResult<ResponsePersonaVehiculo>> agregarRelacionPersonaVehiculo(RequestPersonaVehiculo requestPersonaVehiculo)
         {
             try
             {
-                var idPersona = await _context.PersonaVehiculo.FindAsync(personaVehiculo.IdPersona); 
-
-                var idVehiculo = await _context.PersonaVehiculo.FindAsync(personaVehiculo.IdVehiculo); 
+                var idPersona = await _context.PersonaVehiculo.FindAsync(requestPersonaVehiculo.IdPersona); 
+                var idVehiculo = await _context.PersonaVehiculo.FindAsync(requestPersonaVehiculo.IdVehiculo); 
 
                 if(idPersona != null)
                 {
                     _response.code = 500;
                     _response.message = "ERROR EN ID DE PERSONA. ";
                     _response.error = true;
-                    return Ok(_response); //cambiar el return de lugar aqui termina, no debe temranr aqui 
                 }
-                /*
-                 join 
-                 */
+
                 if(idVehiculo != null)
                 {
                     _response.code = 500;
                     _response.message = "ERROR EN ID DE VEHICULO. ";
                     _response.error = true;
-                    return Ok(_response); //cambiar el return de lugar 
                 }
                 else
                 {
+                    PersonaVehiculo personaVehiculo = new PersonaVehiculo
+                    {
+                        IdPersona = requestPersonaVehiculo.IdPersona,
+                        IdVehiculo = requestPersonaVehiculo.IdVehiculo,
+                        Uso = requestPersonaVehiculo.Uso
+                    }; 
                     await _context.PersonaVehiculo.AddAsync(personaVehiculo);
                     await _context.SaveChangesAsync();
 
@@ -119,8 +120,8 @@ namespace ClaseMiPrimerAPI.Controllers
                     _response.message = "Relacion agregada";
                     _response.error = false;
                     _response.RelacionPersonaVehiculo = personaVehiculo;
-                    return Ok(_response);
                 }
+                return Ok(_response);
             }
             catch(Exception ex)
             {
