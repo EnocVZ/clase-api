@@ -51,25 +51,44 @@ namespace ClaseMiPrimerAPI.Controllers
                         listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
                     }
                 }
-                var PersonaAuto = await context.PersonaVehiculo
+                /*var PersonaAuto = await context.PersonaVehiculo
+                    .Join(context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo, persona) => new DatosPersonaVehiculo
+                    {
+                        Nombre = persona.Nombre,
+                        Apellido = persona.Apellido,
+                    })
+                    .ToListAsync();
+
+                response.data = PersonaAuto;*/
+
+                /*var personaVehiculo = await context.PersonaVehiculo
                     .Join(context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo, persona) => new DatosPersonaVehiculo
                     {
                         Nombre = persona.Nombre,
                         Apellido = persona.Apellido
-                    })
-                    .ToListAsync();
+                    }).ToListAsync();
 
-                response.data = PersonaAuto;
+                var vehiculoPersona = await context.PersonaVehiculo
+                    .Join(context.Vehiculo, pV => pV.IdVehiculo, p => p.Id, (personaVehiculo, vehiculo) => new DatosPersonaVehiculo
+                    {
+                        Modelo = vehiculo.Modelo,
+                    }).ToListAsync();*/
+
+                var listPrueba = await context.PersonaVehiculo.Select(pv => new {
+                    persona = context.Persona.FindAsync(pv.IdPersona),
+                    vehiculo = context.Vehiculo.FindAsync(pv.IdVehiculo)
+                }).ToListAsync();
+                response.data = listaDatosPersonaVehiculo;
 
                 //nuevo
-                var AutoPersona = await context.PersonaVehiculo
+                /*var AutoPersona = await context.PersonaVehiculo
                     .Join(context.Vehiculo, pV => pV.IdVehiculo, p => p.Id, (personaVehiculo, vehiculo) => new DatosPersonaVehiculo
                     {
                         Modelo = vehiculo.Modelo,
                     })
                     .ToListAsync();
 
-                response.data = AutoPersona;
+                response.data = AutoPersona;*/
                 //aqui acaba
 
                 return Ok(response);
