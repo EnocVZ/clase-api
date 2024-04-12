@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
+using System.Reflection.Metadata.Ecma335;
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ClaseMiPrimerAPI.Controllers
 {
@@ -43,7 +48,6 @@ namespace ClaseMiPrimerAPI.Controllers
             }
         }
         //Formulario para capturar el nombre de la persona con el vehiculo mas lujoso
-
         [HttpPost]
         [Route("registrarPersonaVehiculo")]
         public async Task<ActionResult<ClaseMiPrimerAPI.view.Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
@@ -98,44 +102,117 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
 
+        /*
         [HttpGet]
         [Route("lista")]
-        public async Task<ActionResult<List<DatosPersonaVehiculo>>> listaPersona()
+        public async Task<ActionResult<List<DatosPersonaVehiculo>>> lista()
         {
             try
             {
+                ResponsePersonaVehiculo response = new ResponsePersonaVehiculo();
                 var listaPersonaVehiculo = await context.PersonasVehiculo.ToArrayAsync();
                 var listaPersona = await context.Persona.ToArrayAsync();
                 var listaVehiculo = await context.Vehiculo.ToArrayAsync();
-
                 List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
-                foreach (var personaVehiculo in listaPersonaVehiculo)
+
+                var personaAuto = await context.PersonasVehiculo
+                .Join(context.Persona, personaVehiculo => personaVehiculo.IdPersona, persona => persona.Id, (joined,persona)); => { personaVehiculo}
+                .Join(context.Vehiculo, joined => joined.personsaVehiculo.IdPersona, vehiculo => vehiculo.Id, (joined, vehiculo) => new DatosPersonaVehiculo)
+                 {
+                    IdPersonaVehiculo = joined.personaVehiculo.Id,
+                            Nombre = joined.persona.Nombre,
+                            Apellido = joined.persona.Apellido,
+                            Marca = joined.vehiculo.Marca,
+                            Modelo = joined.vehiculo.Modelo
+                        })
+                    ToListAsync();
+                var listpersona = await context.PersonasVehiculo.Select()pev => new {
+
+                    personaVehiculo = pv.
+                    persona = context.Persona.Where(persona = > persona.Id == pv.Idpersona).First(),
+                    vehiculo = context.Vehiculo.Where(Vehiculo => Vehiculo.Id == PV.IdVehiculo).First()
+                }).Select(DatosPersonaVehiculo => new DatosPersonaVehiculo)
                 {
-                    var persona = listaPersona.FirstOrDefault(persona => persona.Id == personaVehiculo.IdPersona);
-                    var vehiculo = listaVehiculo.FirstOrDefault(car => car.Id == personaVehiculo.IdVehiculo);
-                    if (persona != null && vehiculo != null)
-                    {
-                        DatosPersonaVehiculo datosPersonaVehiculo = new DatosPersonaVehiculo
-                        {
-                            IdPersonaVehiculo = personaVehiculo.Id,
-                            Nombre = persona.Nombre,
-                            Apellido = persona.Apellido,
-                            Marca = vehiculo.Marca,
-                            Modelo = vehiculo.Modelo
-                        };
-                        listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
-                    }
+
+                    IdPersonaVehiculo = datos.personaVheiculo.Id,
+                Nombre = datos.persona.Nombre,
+                Apellido = datos.persona.Apellido,
+                Marca = datos.vehiculo.Marca,
+                Modelo = datos.vehiculo.Modelo
+
+
+            }).ToListAsync();
+                response.data = listaDatosPersonaVehiculo;
+
+
+
+
+
+                return Ok(PersonaAuto);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.mensaage)
                 }
+        }*/
+        [HttpGet]
+        [Route("lista")]
+        public async Task<ActionResult<List<DatosPersonaVehiculo>>> Lista()
+        {
+            try
+            {
+                // Consider using eager loading or projection for efficiency
+                ResponsePersonaVehiculo response = new ResponsePersonaVehiculo();
+                var listaPersonaVehiculo = await context.PersonasVehiculo.ToListAsync();
+                var listaPersona = await context.Persona.ToListAsync();
+                var listaVehiculo = await context.Vehiculo.ToListAsync();
+                List<DatosPersonaVehiculo> listaDatosPersonaVehiculo = new List<DatosPersonaVehiculo>();
+                
+                 
+               
+
+                var personaAuto = await context.PersonasVehiculo
+                  .Join(context.Persona, personaVehiculo => personaVehiculo.IdPersona, persona => persona.Id,(personaVehiculo, persona) => personaVehiculo)
+                   .Join(context.Vehiculo, joined => joined.IdPersona, vehiculo => vehiculo.Id, (joined, vehiculo) => new DatosPersonaVehiculo
+                {
+                    IdPersonaVehiculo = joined.Id,
+                    Nombre = joined.Persona.Nombre,
+                    Apellido = joined.Persona.Apellido,
+                    Marca = vehiculo.Marca,
+                    Modelo = vehiculo.Modelo
+                })
+            .ToListAsync();
+
+                var listPrueba = await context.PersonasVehiculo.Select(pv => new {
+
+                    personaVehiculo = pv,
+                    persona = context.Persona.Where(persona => persona.Id == pv.IdPersona).First(),
+                    vehiculo = context.Vehiculo.Where(Vehiculo => Vehiculo.Id == pv.IdVehiculo).First()
+                }).Select(datos => new DatosPersonaVehiculo
+                {
+
+                IdPersonaVehiculo = datos.personaVehiculo.Id,
+                Nombre = datos.persona.Nombre,
+                Apellido = datos.persona.Apellido,
+                Marca = datos.vehiculo.Marca,
+                Modelo = datos.vehiculo.Modelo
+
+
+            }).ToListAsync();
+                
+
 
                 return Ok(listaDatosPersonaVehiculo);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                return BadRequest(new { message = " Error" });
             }
         }
 
-        [HttpGet]
+
+       /* [HttpGet]
         [Route("listaPersonaVehiculo")]
         public async Task<ActionResult<List<DatosPersonaVehiculo>>> listaPersonaVehiculo()
         {
@@ -163,7 +240,7 @@ namespace ClaseMiPrimerAPI.Controllers
         }
 
 
-
+*/
 
 
 
