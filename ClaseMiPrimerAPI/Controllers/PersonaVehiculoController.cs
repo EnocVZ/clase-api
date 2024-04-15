@@ -106,8 +106,11 @@ namespace ClaseMiPrimerAPI.Controllers
 
         public async Task<ActionResult<Response>> registrarPersonaVehiculo(RequestPersonaVehiculo request)
         {
+            var transaction = context.Database.BeginTransaction();
             try
             {
+                Response response = new Response();
+                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
                 Persona persona = new Persona
                 {
                     Nombre = request.Nombre,
@@ -117,22 +120,36 @@ namespace ClaseMiPrimerAPI.Controllers
                 {
                     Modelo = request.Modelo,
                 };
-
-                PersonaVehiculo personaVehiculo = new PersonaVehiculo();
                 
                 var savePersona = await context.Persona.AddAsync(persona);
                 var saveVehiculo = await context.Vehiculo.AddAsync(vehiculo);
+                var seguardaronLosRegistros = await context.SaveChangesAsync();
                 await context.SaveChangesAsync();
                 personaVehiculo.IdPersona = savePersona.Entity.Id;
                 personaVehiculo.IdVehiculo = saveVehiculo.Entity.Id;
                 await context.PersonaVehiculo.AddAsync(personaVehiculo);
-                await context.SaveChangesAsync();
+                var seguardoRelacion = await context.SaveChangesAsync();
 
-                Response response = new Response();
+                if (seguardaronLosRegistros > 0 && seguardoRelacion > 0 && request.Nombre == "Jose")
+                {
+                    transaction.Commit();
+                    response.error = false;
+                    response.message = "Se registraron los datos";
+                }
+                else
+                {
+                    transaction.Rollback();
+                    response.error = true;
+                    response.message = "No se pudieron registrar los datos";
+                }
+                //await context.SaveChangesAsync();
+
+                //Response response = new Response();
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 return BadRequest(ex);
             }
         }
