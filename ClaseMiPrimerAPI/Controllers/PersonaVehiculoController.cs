@@ -92,17 +92,25 @@ namespace ClaseMiPrimerAPI.Controllers
                 var idPersona = await _context.PersonaVehiculo.FindAsync(requestPersonaVehiculo.IdPersona); 
                 var idVehiculo = await _context.PersonaVehiculo.FindAsync(requestPersonaVehiculo.IdVehiculo); 
 
-                if(idPersona != null)
+
+                if (idPersona == null && idVehiculo == null)
                 {
                     _response.code = 500;
-                    _response.message = "ERROR EN ID DE PERSONA. ";
+                    _response.message = "PERSONA Y VEHICULO NO EXISTEN. ";
                     _response.error = true;
                 }
 
-                if(idVehiculo != null)
+                if(idPersona == null)
                 {
                     _response.code = 500;
-                    _response.message = "ERROR EN ID DE VEHICULO. ";
+                    _response.message = "ID DE PERSONA NO ENCONTRADO. ";
+                    _response.error = true;
+                }
+
+                if(idVehiculo == null)
+                {
+                    _response.code = 500;
+                    _response.message = "ID DE VEHICULO NO ENCONTRADO. ";
                     _response.error = true;
                 }
                 else

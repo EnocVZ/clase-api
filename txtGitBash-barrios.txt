@@ -588,4 +588,163 @@ $
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+GIT LOG
+
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git log
+commit 7ff28cf148f4a36f1ed2cf68bb7e696dfc885f63 (HEAD -> RamaBarrios, origin/RamaBarrios)
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 12 07:59:22 2024 -0600
+
+    Agregado (hacer mas pruebas) verificando si existe o no persona o vehiculo. Falta poner el requestpersonavehiculo a actualizar.
+
+commit df7edbd2b6bb259650c2f7ebade286f18676ed2e
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Thu Apr 11 11:27:11 2024 -0600
+
+    Tabla relacion Funciona.
+
+commit 60b93ac3d83bf796e488af668556a54a0d760077
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Thu Apr 11 10:16:17 2024 -0600
+
+    Tabla de PersonaVehiculo Funciona. Agregare el uso y despues continuo
+
+commit df57ee6bf5863b7de59a5350a3113519728002e2
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Thu Apr 11 09:04:27 2024 -0600
+
+    Actualizaciones Generales Varias. Aun no funciona extraer de forma JOIN los datos de la tabla PersonaVehiculo
+
+commit 470f1dbcfaa2b01dd8623222202d6f39734d3d21
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Thu Apr 11 06:08:08 2024 -0600
+
+    Intentando JOIN persona, reference not set
+
+commit f02fcb2eeb7a9e51cb7f7dd970733e4c68781224
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Wed Apr 10 12:28:57 2024 -0600
+
+    Errores en deteccion de ID de persona o vehiculo.
+
+commit a05f70ecacc458c55756da95bc13b26a92b77245
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Tue Apr 9 11:19:11 2024 -0600
+
+    CRUD con verificacion de ID terminado, no funciona, dividir la verificacion.
+
+commit 1699e4e983697e5360d0fba8df6927f9bedb70b8
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Tue Apr 9 10:42:00 2024 -0600
+
+    CRUD Relacion PersonaVehiculo terminado. Faltan pruebas y verificar que las personas existan antes de aniadir la relacion.
+
+commit 8453b28ed039a05155f56c97c838c15953b95406
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Tue Apr 9 08:41:34 2024 -0600
+
+    Relacion PersonaVehiculo casi empezada, errores en nombres de columnas y propiedades de el modelo
+
+commit 0f3af02071f228c09176cb13c91513b0eb82fee0
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Mon Apr 8 08:57:41 2024 -0600
+
+    CRUD bd y List terminado para Personas y Vehiculos. Falta un metodo que una a vehiculo y persona.
+
+commit 3782bde1afa43b5684c06bc3796179955e843949
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Sun Apr 7 17:12:53 2024 -0600
+
+    PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo.
+
+commit ada421898a4a6ed2af23d85f524b468dc0041344
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Sun Apr 7 01:28:38 2024 -0600
+
+    VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD
+
+commit 60f73ba8fa66c6e340e103bcee64f435729a5056
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 5 14:26:10 2024 -0600
+
+    aniadiendo commit para probar los pull request
+
+commit a8c7a71dc10f516ad0ba7c43e429c0956a60c025
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 5 13:41:49 2024 -0600
+
+    Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits
+
+commit 3d929c43cc2609dd8c7f01622e5ba7bfc2974dd6
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 5 09:06:46 2024 -0600
+
+    Barrios unio proyecto persona y vehiculo en el proyecto de ENOC descargado del repositorio
+
+commit c49d95e6baab613cdb584e8504f0c751a0bcc3b8
+Author: noobvarrios <noobvarrios@gmail.com>
+Date:   Fri Apr 5 08:03:36 2024 -0600
+
+    Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS
+
+commit f6a9b4bdf96bde90f79d7ccadbbd03b7f211961a (origin/main, main)
+Merge: 49b715d f62ae52
+Author: Enoc vasquez saraoz <35532625+EnocVZ@users.noreply.github.com>
+Date:   Thu Apr 4 17:31:43 2024 -0600
+
+    Merge pull request #1 from EnocVZ/feat-enoc
+
+    Insersion a tabla persona
+
+commit f62ae526f0d4d1050f6a48c186e48a5098839cb1
+Author: EnocVZ <enoch.95@hotmail.com>
+Date:   Thu Apr 4 17:10:17 2024 -0600
+
+    Insersion a tabla persona
+
+commit 49b715d91a10fabfe425477d3bcf87972ce41f1e
+Author: EnocVZ <enoch.95@hotmail.com>
+Date:   Thu Apr 4 16:17:50 2024 -0600
+
+    Nuevo archivo md
+
+commit df150caccdf2d320617aea460cf78677ce06d1a8
+Author: EnocVZ <enoch.95@hotmail.com>
+Date:   Thu Apr 4 16:03:16 2024 -0600
+
+    primer commit a main
+
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$
+
+
+/////////-////////////////////////////////////////////////////////////////////////////////
+Osadi@DESKTOP-C3OS9R4 MINGW64 ~/OneDrive/Documentos/CursosCapacitacion/ApiVehiculosPersonasConexionBD (RamaBarrios)
+$ git log --oneline
+7ff28cf (HEAD -> RamaBarrios, origin/RamaBarrios) Agregado (hacer mas pruebas) verificando si existe o no persona o vehiculo. Falta poner el requestpersonavehiculo a actualizar.
+df7edbd Tabla relacion Funciona.
+60b93ac Tabla de PersonaVehiculo Funciona. Agregare el uso y despues continuo
+df57ee6 Actualizaciones Generales Varias. Aun no funciona extraer de forma JOIN los datos de la tabla PersonaVehiculo
+470f1db Intentando JOIN persona, reference not set
+f02fcb2 Errores en deteccion de ID de persona o vehiculo.
+a05f70e CRUD con verificacion de ID terminado, no funciona, dividir la verificacion.
+1699e4e CRUD Relacion PersonaVehiculo terminado. Faltan pruebas y verificar que las personas existan antes de aniadir la relacion.
+8453b28 Relacion PersonaVehiculo casi empezada, errores en nombres de columnas y propiedades de el modelo
+0f3af02 CRUD bd y List terminado para Personas y Vehiculos. Falta un metodo que una a vehiculo y persona.
+3782bde PERSONA CRUD CONEXION BD - solo falta delete y hacerlo para Vehiculo.
+ada4218 VehiculoContext Agregado, trabajando en aniadir un Vehiculo a la BD
+60f73ba aniadiendo commit para probar los pull request
+a8c7a71 Barrios Solucion Aniadir personas a la base de datos utilizanod una conexion sin usuario ni contrasenia: linea = Server=DESKTOP-C3OS9R4\TEW_SQLEXPRESS;Database=pruebasApi;Trusted_Connection=True; TrustServerCertificate=true - VERSION 2, no entiendo los commits
+3d929c4 Barrios unio proyecto persona y vehiculo en el proyecto de ENOC descargado del repositorio
+c49d95e Descarga del proyecto, agregue un TXT con los movimientos realizados en gitbash - BARRIOS
+f6a9b4b (origin/main, main) Merge pull request #1 from EnocVZ/feat-enoc
+f62ae52 Insersion a tabla persona
+49b715d Nuevo archivo md
+df150ca primer commit a main
+(END)
+
+
 
