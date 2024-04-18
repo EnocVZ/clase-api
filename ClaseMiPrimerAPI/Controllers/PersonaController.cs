@@ -1,11 +1,9 @@
-﻿
-using ClaseMiPrimerAPI.DbListContext;
+﻿using ClaseMiPrimerAPI.DbListContext;
 using ClaseMiPrimerAPI.Model;
 using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-
+                                                                                    
 namespace ClaseMiPrimerAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -23,8 +21,15 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("listaPersonas")]
         public async Task<ActionResult<IEnumerable<Vehiculo>>> listaPersonas()
         {
-            var personas = await _context.Persona.ToListAsync(); 
-            return Ok(personas);    
+            try
+            {
+                var personas = await _context.Persona.ToListAsync();
+                return Ok(personas);
+            }  
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
