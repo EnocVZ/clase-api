@@ -11,8 +11,8 @@ namespace ClaseMiPrimerAPI.Controllers
     public class ConcesionarioController : ControllerBase
     {
         private readonly BaseDatosContext _context;
-        Response _response = new Response();
-        ResponseConcesionario _responseConcesionario = new ResponseConcesionario();
+        //Response _responseConcesionario = new Response();
+        ResponseConcesionario _response = new ResponseConcesionario();
 
         public ConcesionarioController(BaseDatosContext context)
         {
@@ -65,15 +65,15 @@ namespace ClaseMiPrimerAPI.Controllers
 
             if (buscarConcesionario == null)
             {
-                _responseConcesionario.error = true;
-                _responseConcesionario.message = "Concesionario no encontrado";
-                _responseConcesionario.code = 500;
+                _response.error = true;
+                _response.message = "Concesionario no encontrado";
+                _response.code = 500;
             }
-            _responseConcesionario.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
-            _responseConcesionario.message = "Concesionario encontrado";
-            _responseConcesionario.code = 200;
-            _responseConcesionario.ConcesionarioEncontrado = buscarConcesionario;// utilizar ctrl + alt + pulsar para multicursor. 
-            return Ok(_responseConcesionario);
+            _response.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
+            _response.message = "Concesionario encontrado";
+            _response.code = 200;
+            _response.ConcesionarioEncontrado = buscarConcesionario;// utilizar ctrl + alt + pulsar para multicursor. 
+            return Ok(_response);
         }
 
         [HttpPut]
@@ -83,21 +83,21 @@ namespace ClaseMiPrimerAPI.Controllers
             var concesionarioExiste = await _context.Concesionario.FindAsync(id);
             if (concesionarioExiste == null)
             {
-                _responseConcesionario.error = true;
-                _responseConcesionario.message = "Mecanico no encontrado. ";// utilizar ctrl + alt + pulsar para multicursor. 
-                _responseConcesionario.code = 500;
+                _response.error = true;
+                _response.message = "Mecanico no encontrado. ";// utilizar ctrl + alt + pulsar para multicursor. 
+                _response.code = 500;
             }
             concesionarioExiste.Nombre = concesionario.Nombre;
             concesionarioExiste.Direccion = concesionario.Direccion;
 
             await _context.SaveChangesAsync();
 
-            _responseConcesionario.code = 200;
-            _responseConcesionario.message = "Concesionario actualizado";
-            _responseConcesionario.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
-            _responseConcesionario.ConcesionarioEncontrado= concesionarioExiste;
+            _response.code = 200;
+            _response.message = "Concesionario actualizado";
+            _response.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
+            _response.ConcesionarioEncontrado= concesionarioExiste;
 
-            return Ok(_responseConcesionario);
+            return Ok(_response);
         }
 
 
@@ -108,18 +108,18 @@ namespace ClaseMiPrimerAPI.Controllers
             var concesionarioEliminado = await _context.Concesionario.FindAsync(id);
             if (concesionarioEliminado == null)
             {
-                _responseConcesionario.error = true;
-                _responseConcesionario.message = "Concesionario no encontrado";
-                _responseConcesionario.code = 500;
+                _response.error = true;
+                _response.message = "Concesionario no encontrado";
+                _response.code = 500;
             }
             _context.Concesionario.Remove(concesionarioEliminado);
             await _context.SaveChangesAsync();
 
-            _responseConcesionario.error = false;
-            _responseConcesionario.message = "Concesionario eliminado";
-            _responseConcesionario.code = 200;
-            _responseConcesionario.ConcesionarioEncontrado= concesionarioEliminado;
-            return Ok(_responseConcesionario);  
+            _response.error = false;
+            _response.message = "Concesionario eliminado";
+            _response.code = 200;
+            _response.ConcesionarioEncontrado= concesionarioEliminado;
+            return Ok(_response);  
         }
 
 
