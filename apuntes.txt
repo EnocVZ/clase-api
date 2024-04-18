@@ -10,3 +10,15 @@ hacer metodo que una vehiculo y persona
 
 arreglar los ResponsePersona
 	Unir todos en uno solo. 
+	
+	
+ResponseVehiculo 
+	        public Vehiculo vehiculoEncontrado { get; set; }
+        public List<Vehiculo>? ListaVehiculo { get; set; }
+		
+		        public Vehiculo Vehiculo { get; set; }
+        public List<Vehiculo>? ListaVehiculo { get; set; }
+		
+		        public int IdVehiculo { get; set; }
+        public List<Vehiculo> ListaVehiculo { get; set; }
+		
