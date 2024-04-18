@@ -13,6 +13,11 @@ namespace ClaseMiPrimerAPI.Controllers
         private readonly BaseDatosContext _context;
         ResponseServicio _response = new ResponseServicio();
 
+        public ServicioController(BaseDatosContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         [Route("/listaServicios")]
         public async Task<ActionResult<IEnumerable<Servicio>>> listaServicios()
@@ -57,7 +62,7 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("buscarServicio")]
         public async Task<IActionResult> buscarServicio(int id)
         {
-            Servicio buscarServicio = await _context.Servicio.FindAsync(id);
+            var buscarServicio = await _context.Servicio.FindAsync(id);
 
             if (buscarServicio == null)
             {
@@ -90,7 +95,7 @@ namespace ClaseMiPrimerAPI.Controllers
             await _context.SaveChangesAsync();
 
             _response.code = 200;
-            _response.message = "Concesionario actualizado";
+            _response.message = "Servicio actualizado";
             _response.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
             _response.ServicioEncontrado = servicioExiste;
 

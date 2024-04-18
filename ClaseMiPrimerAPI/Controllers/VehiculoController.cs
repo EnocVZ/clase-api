@@ -5,7 +5,6 @@ using ClaseMiPrimerAPI.view;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace ClaseMiPrimerAPI.Controllers
 {
     [Route("api/[controller]")]
