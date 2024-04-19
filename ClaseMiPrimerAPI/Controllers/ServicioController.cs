@@ -45,7 +45,7 @@ namespace ClaseMiPrimerAPI.Controllers
                     Nombre = servicio.Nombre,
                     Descripcion = servicio.Descripcion,
                     Precio = servicio.Precio
-                };
+                }; 
 
                 await _context.Servicio.AddAsync(guardarServicio);
                 await _context.SaveChangesAsync();
@@ -62,15 +62,17 @@ namespace ClaseMiPrimerAPI.Controllers
         [Route("buscarServicio")]
         public async Task<IActionResult> buscarServicio(int id)
         {
-            var buscarServicio = await _context.Servicio.FindAsync(id);
+            Servicio buscarServicio = await _context.Servicio.FindAsync(id);
 
             if (buscarServicio == null)
             {
                 _response.error = true;
                 _response.message = "Servicio no encontrado";
                 _response.code = 500;
+                return NotFound(_response);
+
             }
-            _response.error = false;// utilizar ctrl + alt + pulsar para multicursor. 
+            _response.error = false;// utilizar ctrl +   alt + pulsar para multicursor. 
             _response.message = "Servicio encontrado";
             _response.code = 200;
             _response.ServicioEncontrado = buscarServicio;// utilizar ctrl + alt + pulsar para multicursor. 
