@@ -18,6 +18,7 @@ namespace ClaseMiPrimerAPI.DbListContext
         public DbSet<Concesionario> Concesionario { get; set; }
         public DbSet<Servicio> Servicio { get; set; }
         public DbSet<Vendedor> Vendedor { get; set; }
+        public DbSet<Venta>Venta { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,7 @@ namespace ClaseMiPrimerAPI.DbListContext
             modelBuilder.Entity<Concesionario>().HasIndex(c => c.Id).IsUnique();
             modelBuilder.Entity<Servicio>().HasIndex(c => c.Id).IsUnique();
             modelBuilder.Entity<Vendedor>().HasIndex(c=> c.Id).IsUnique();
+            modelBuilder.Entity<Venta>().HasIndex(c => c.Id).IsUnique();
         }
     }
 }

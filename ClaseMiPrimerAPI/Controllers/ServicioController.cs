@@ -42,6 +42,7 @@ namespace ClaseMiPrimerAPI.Controllers
             {
                 Servicio guardarServicio = new Servicio
                 {
+                    IdConcesionaria = servicio.IdConcesionaria,
                     Nombre = servicio.Nombre,
                     Descripcion = servicio.Descripcion,
                     Precio = servicio.Precio
@@ -90,6 +91,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 _response.message = "Servicio no encontrado. ";// utilizar ctrl + alt + pulsar para multicursor. 
                 _response.code = 500;
             }
+            servicioExiste.IdConcesionaria = servicio.IdConcesionaria;
             servicioExiste.Nombre = servicio.Nombre;
             servicioExiste.Descripcion = servicio.Descripcion;
             servicioExiste.Precio = servicio.Precio; 

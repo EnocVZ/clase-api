@@ -36,6 +36,7 @@ namespace ClaseMiPrimerAPI.Controllers
             {
                 Vehiculo guardarVehiculo = new Vehiculo 
                 { 
+                    IdConcesionaria = vehiculo.IdConcesionaria,
                     Marca = vehiculo.Marca,
                     Modelo = vehiculo.Modelo, 
                     Color = vehiculo.Color,
@@ -89,7 +90,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 _response.code = 500;
                 return NotFound(_response);
             }
-
+            vehiculoExiste.IdConcesionaria = vehiculo.IdConcesionaria;
             vehiculoExiste.Marca = vehiculo.Marca;
             vehiculoExiste.Modelo = vehiculo.Modelo;
             vehiculoExiste.Color = vehiculo.Color;

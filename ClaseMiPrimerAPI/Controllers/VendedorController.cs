@@ -42,6 +42,7 @@ namespace ClaseMiPrimerAPI.Controllers
             {
                 Vendedor guardarVendedor = new Vendedor
                 {
+                    IdConcesionaria = vendedor.IdConcesionaria,
                     Nombre = vendedor.Nombre,
                     Apellido = vendedor.Apellido, 
                     Salario = vendedor.Salario
@@ -89,6 +90,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 _response.message = "Vendedor no encontrado. ";// utilizar ctrl + alt + pulsar para multicursor. 
                 _response.code = 500;
             }
+            vendedorExiste.IdConcesionaria = vendedor.IdConcesionaria;
             vendedorExiste.Nombre = vendedor.Nombre;
             vendedorExiste.Apellido = vendedor.Apellido;
             vendedorExiste.Salario = vendedor.Salario; 

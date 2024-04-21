@@ -41,6 +41,7 @@ namespace ClaseMiPrimerAPI.Controllers
             {
                 Mecanico guardarMecanico = new Mecanico
                 {
+                    IdConcesionaria = mecanico.IdConcesionaria,
                     Nombre = mecanico.Nombre,
                     Apellido = mecanico.Apellido,
                     Salario = mecanico.Salario
@@ -86,6 +87,7 @@ namespace ClaseMiPrimerAPI.Controllers
                 _responseMecanico.message = "Mecanico no encontrado. ";
                 _responseMecanico.code = 500; 
             }
+            mecanicoExiste.IdConcesionaria = mecanico.IdConcesionaria; 
             mecanicoExiste.Nombre = mecanico.Nombre; 
             mecanicoExiste.Apellido = mecanico.Apellido;
             mecanicoExiste.Salario = mecanico.Salario;

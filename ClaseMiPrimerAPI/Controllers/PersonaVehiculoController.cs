@@ -8,7 +8,7 @@ namespace ClaseMiPrimerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonaVehiculoController : Controller
+    public class PersonaVehiculoController : ControllerBase
     {
         private readonly BaseDatosContext _context;
         ResponsePersonaVehiculo _response = new ResponsePersonaVehiculo();
