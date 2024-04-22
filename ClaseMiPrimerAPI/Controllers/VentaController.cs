@@ -22,7 +22,7 @@ namespace ClaseMiPrimerAPI.Controllers
         //LISTAR RELACIONES 
         [HttpGet]
         [Route("listaVentas")]
-        public async Task<ActionResult<Venta>> listaVentas()
+        public async Task<ActionResult<Venta>> ListaVentas()
         {
             try
             {
@@ -58,6 +58,14 @@ namespace ClaseMiPrimerAPI.Controllers
                         ListaVentasRealizadas.Add(ventaNueva); 
                     }
                 }
+                //Ventas Persona
+                //Ventas Concesionario
+                //Ventas Vehiculo
+                //Ventas Vendedor 
+                _response.code = 500;
+                _response.error = false;
+                _response.message = "Hacer las relaciones";
+                return Ok(_response);
 
 
             }catch(Exception ex) { return Ok(ex.Message); }
@@ -65,7 +73,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpPost]
         [Route("agregarVenta")]
-        public async Task<ActionResult<ResponseVenta>> agregarVenta(RequestVenta requestVenta)
+        public async Task<ActionResult<ResponseVenta>> AgregarVenta(RequestVenta requestVenta)
         {
             try
             {
@@ -126,7 +134,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpGet]
         [Route("buscarVenta")]
-        public async Task<IActionResult> buscarVenta(int id)
+        public async Task<IActionResult> BuscarVenta(int id)
         {
             Venta buscarVenta = await _context.Venta.FindAsync(id); //consulta que debo agregar al metodo de agregar relacion 
 
@@ -149,7 +157,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpPut]
         [Route("actualizarVenta")]
-        public async Task<IActionResult> actualizarVenta(Venta venta)
+        public async Task<IActionResult> ActualizarVenta(Venta venta)
         {
             var buscarVenta = await _context.Venta.FindAsync(venta.Id); //consulta que debo agregar al metodo de agregar relacion 
             if (buscarVenta == null)
@@ -178,7 +186,7 @@ namespace ClaseMiPrimerAPI.Controllers
 
         [HttpDelete]
         [Route("eliminarVenta")]
-        public async Task<IActionResult> eliminarVenta(int id)
+        public async Task<IActionResult> EliminarVenta(int id)
         {
             var eliminarVenta = await _context.Venta.FindAsync(id); //consulta que debo agregar al metodo de agregar relacion 
             if (eliminarVenta == null)
