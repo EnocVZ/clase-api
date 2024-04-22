@@ -62,5 +62,145 @@ namespace ClaseMiPrimerAPI.Controllers
 
             }catch(Exception ex) { return Ok(ex.Message); }
         }
+
+        [HttpPost]
+        [Route("agregarVenta")]
+        public async Task<ActionResult<ResponseVenta>> agregarVenta(RequestVenta requestVenta)
+        {
+            try
+            {
+                var idPersona = await _context.Persona.FindAsync(requestVenta.IdPersona);
+                var idVehiculo = await _context.Vehiculo.FindAsync(requestVenta.IdVehiculo);
+                var idVendedor = await _context.Vendedor.FindAsync(requestVenta.IdVendedor);
+                var idConcesionaria = await _context.Concesionario.FindAsync(requestVenta.IdConcesionario);
+
+                if(idPersona != null)
+                {
+                    _response.error = true;
+                    _response.message = "Persona no encontrada. ";
+                    _response.code = 500; 
+                }
+                if (idVehiculo != null)
+                {
+                    _response.error = true;
+                    _response.message = "Vehiculo no encontrado. ";
+                    _response.code = 500;
+                }
+                if (idVendedor != null)
+                {
+                    _response.error = true;
+                    _response.message = "Vendedor no encontrado. ";
+                    _response.code = 500;
+                }
+                if (idConcesionaria != null)
+                {
+                    _response.error = true;
+                    _response.message = "Consesionaria no encontrada. ";
+                    _response.code = 500;
+                }
+                else
+                {
+                    Venta agregarVenta = new Venta
+                    {
+                        IdPersona = requestVenta.IdPersona,
+                        IdVehiculo = requestVenta.IdVehiculo, 
+                        IdConcesionario = requestVenta.IdConcesionario,
+                        IdVendedor = requestVenta.IdVendedor, 
+                        Fecha = requestVenta.Fecha, 
+                        Total = requestVenta.Total
+                    };
+                    await _context.Venta.AddAsync(agregarVenta);
+                    await _context.SaveChangesAsync();
+                    _response.code = 200;
+                    _response.message = "Venta agregada";
+                    _response.error = false;
+                    _response.Venta = agregarVenta;
+                }
+                return Ok(_response);
+            }
+            catch (Exception ez) 
+            { 
+                return Ok(ez.Message); 
+            }
+        }
+
+        [HttpGet]
+        [Route("buscarVenta")]
+        public async Task<IActionResult> buscarVenta(int id)
+        {
+            Venta buscarVenta = await _context.Venta.FindAsync(id); //consulta que debo agregar al metodo de agregar relacion 
+
+            if (buscarVenta == null)
+            {
+                _response.code = 500;
+                _response.message = "Venta no encontrada";
+                _response.error = true;
+                return Ok(_response);
+            }
+            else
+            {
+                _response.code = 200;
+                _response.message = "Venta encontrada";
+                _response.error = false;
+                _response.Venta = buscarVenta;
+                return Ok(_response);
+            }
+        }
+
+        [HttpPut]
+        [Route("actualizarVenta")]
+        public async Task<IActionResult> actualizarVenta(Venta venta)
+        {
+            var buscarVenta = await _context.Venta.FindAsync(venta.Id); //consulta que debo agregar al metodo de agregar relacion 
+            if (buscarVenta == null)
+            {
+                _response.code = 500;
+                _response.message = "Venta no encontrada";
+                _response.error = true;
+                return Ok(_response);
+            }
+            else
+            {
+                buscarVenta.IdPersona = venta.IdPersona;
+                buscarVenta.IdVehiculo = venta.IdVehiculo;
+                buscarVenta.IdVendedor = venta.IdVendedor;
+                buscarVenta.IdConcesionario = venta.IdConcesionario; 
+                buscarVenta.Fecha = venta.Fecha;
+                buscarVenta.Total = venta.Total;
+                await _context.SaveChangesAsync();
+
+                _response.code = 200;
+                _response.message = "Venta actualizada. ";
+                _response.error = false;
+                return Ok(_response);
+            }
+        }
+
+        [HttpDelete]
+        [Route("eliminarVenta")]
+        public async Task<IActionResult> eliminarVenta(int id)
+        {
+            var eliminarVenta = await _context.Venta.FindAsync(id); //consulta que debo agregar al metodo de agregar relacion 
+            if (eliminarVenta == null)
+            {
+                _response.code = 500;
+                _response.message = "Venta no encontrada";
+                _response.error = true;
+                return Ok(_response);
+            }
+            else
+            {
+                /*            vehiculoContext.Vehiculo.Remove(vehiculoEliminar);
+            await vehiculoContext.SaveChangesAsync(); */
+                _context.Venta.Remove(eliminarVenta);
+                await _context.SaveChangesAsync();
+                _response.code = 200;
+                _response.message = "Relacion eliminada";
+                _response.error = false;
+                _response.VentaEncontrada = eliminarVenta;
+                return Ok(_response);
+            }
+        }
+
     }
 }
