@@ -8,12 +8,9 @@
         public int IdConcesionario { get; set; }
         public int IdVendedor { get; set; }
 
-        //DESCRIPCION DE LA VENTA 
-        public string NombrePersona { get; set; }
-        public string NombreVendedor { get; set; }
-        public string Marca { get; set; }
+        //descripcion de la venta esta en DATOS venta
 
         public string Fecha { get; set; }
-        public float Total {  get; set; }
+        public int Total {  get; set; }
     }
 }

@@ -47,12 +47,6 @@ namespace ClaseMiPrimerAPI.Controllers
                         listaDatosPersonaVehiculo.Add(datosPersonaVehiculo);
                     }
                 }
-                /*
-                _response.error = false;
-                _response.code = 200;
-                _response.data = listaDatosPersonaVehiculo;
-                return Ok(_response); 
-                */
                 var personaVehiculo = await _context.PersonaVehiculo
                     .Join(_context.Persona, pV => pV.IdPersona, p => p.Id, (personaVehiculo,persona) => new DatosPersonaVehiculo
                     {

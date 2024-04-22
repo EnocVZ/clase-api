@@ -1,12 +1,28 @@
-Dividir los controladores en 
-BD 
-no BD 
-	ME FALTA UN METODO QUE UNA 
+cual es el proceso, 
+primero se crean los modelos y despues todos lo demas?
+primero es la base de datos?
+es una platica 
 
-hacer controlador de vehiculo
+cual es el proceso real de crear un software para alguien 
+como adquiero las habilidades para identificar las necesidades de un cliente?
 
-hacer metodo que una vehiculo y persona 
+como identifico si una tabla es necesaria?
 
 
-arreglar los ResponsePersona
-	Unir todos en uno solo. 
+como empiezo a codificar sin guiarme de mis codigos anteriores?
+cual es el metodo de aprendizaje?
+
+
+
+pendientes porque son dudas 
+agregar el concesionarioq ue relaciona a persona con vehiculo 
+los mecanicos pertenecen a una concesionaria 
+los servicios pertenecen a una concesionaria 
+los vendedores pertenecen a una concesionaria - puede estar vacio 
+
+
+en la cantidad de vehiculos que tiene un concesionario
+deben de ir aumentando conforme se van agregando vehiculos
+con id concesionario en cada entidad ya se puede tener contadores de manera mas facil 
+
+no inclui los metodos de pago 
